@@ -1,0 +1,43 @@
+/* ---- Layout */
+* {
+    box-sizing: border-box;
+  }
+  
+.navbar-container, footer {
+    background-color: #ffffff;
+}
+  
+#suggestedItems .wrapper {
+    max-width: 960px;
+    margin: auto;
+}
+
+.clothing-card {
+    margin: 5%;
+    padding-bottom: 0!important;
+}
+
+@media (min-width: 576px) {
+    .clothing-card{
+        width: 50%;
+    }
+}
+
+.clothing-card img {
+    width: 100%;
+}
+
+  
+  
+/* Sticky Footer */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.main {
+    flex: 1 0 auto;
+    min-height: auto;
+}
