@@ -5,13 +5,13 @@ var imageNumber = [0, 1]
 ///
 ///
 var imagesArray = [
-    { day: $('<div''one', item1: 'rain hat', item2: 'jacket', item3: 'umbrella' },
+    { day: 'one', item1: 'rain hat', item2: 'jacket', item3: 'umbrella' },
     { day: 'two', item1: 'skirt', item2: 'sunglasses', item3: 'sunscreen' }
-    { date: null, item1: null, item2: null, item3: null },
-    { date: null, item1: null, item2: null, item3: null },
-    { date: null, item1: null, item2: null, item3: null }
+//     { date: null, item1: null, item2: null, item3: null },
+//     { date: null, item1: null, item2: null, item3: null },
+//     { date: null, item1: null, item2: null, item3: null }
 ];
-console.log(imagesArray)
+// console.log(imagesArray)
 
 
 

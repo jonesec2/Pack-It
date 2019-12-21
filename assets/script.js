@@ -51,19 +51,19 @@ function imageSearch() {
             // var imageTwo = response.items[1].image.thumbnailLink
             // console.log(imageTwo)
 
-            // var newImage = $('<div>')
-            // newImage.html(/*html*/`
-            // <div class="wrapper container d-flex flex-column flex-sm-row">
-            //     <div class="clothing-card card p-4">
-            //         <img id=clothing1 src=${image}>
-            //         <div class="d-flex justify-content-between pt-2">
-            //             <p id="clothing1Name">${clothingName}</p>
-            //             <a href="#" id="addItemBtn">+</a>
-            //         </div>
-            //     </div>
-            // </div>`)
-            // console.log(newImage)
-            // $('.suggestion-header').append(newImage)
+            var newImage = $('<div>')
+            newImage.html(/*html*/`
+            <div class="wrapper container d-flex flex-column flex-sm-row">
+                <div class="clothing-card card p-4">
+                    <img id=clothing1 src=${image}>
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name">${clothingName}</p>
+                        <a href="#" id="addItemBtn">+</a>
+                    </div>
+                </div>
+            </div>`)
+            console.log(newImage)
+            $('.suggestion-header').append(newImage)
 
 
 
