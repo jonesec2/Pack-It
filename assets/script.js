@@ -28,7 +28,36 @@ var imagesArray = [
         imageName2: null,
         imageResult3: null,
         imageName3: null
-    }
+    },
+    {
+        date: 'two',
+        item1: 'skirt',
+        item2: 'sunglasses',
+        item3: 'sunscreen',
+        clothingIdOne: 'one',
+        buttonIdOne: 'addItemBtn',
+        imageResult1: null,
+        imageName1: null,
+        imageResult2: null,
+        imageName2: null,
+        imageResult3: null,
+        imageName3: null
+    },
+    {
+        date: 'two',
+        item1: 'skirt',
+        item2: 'sunglasses',
+        item3: 'sunscreen',
+        clothingIdOne: 'one',
+        buttonIdOne: 'addItemBtn',
+        imageResult1: null,
+        imageName1: null,
+        imageResult2: null,
+        imageName2: null,
+        imageResult3: null,
+        imageName3: null
+    },
+
 ];
 //
 
@@ -49,7 +78,7 @@ $('#getCltothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            mKey + "&cx=" + cxM + "&searchType=image&q=";
+        cKey + "&cx=" + cxC + "&searchType=image&q=";
 
         // first ajax call, this goes over the element.item1 for each object
         $.ajax({ url: query + element.item1, method: "GET" }).then(function (response) {
@@ -91,30 +120,29 @@ $('#getCltothingBtn').on('click', function () {
 
             // setting the html using an template literal with ``
             // we'll call the imageArray and append to page for as many as we have results
-            newImage.html(`
-        <div class="clothing-card card p-4">
-            <img id=${element.imageName1 + i} src=${element.imageResult1}>
-            <div class="d-flex justify-content-between pt-2">
-                <p>${element.imageName1}</p>
-                <a href="#" id="${element.buttonIdOne + i}">+</a>
+            newImage.html(/*html*/`
+            <div class="clothing-card card p-4">
+                <img id=${element.imageName1 + i} src="https://via.placeholder.com/150" >
+                    <div class="d-flex justify-content-between pt-2">
+                        <p class="clothing-name">${element.imageName1}</p>
+                     <a href="#" id="${element.buttonIdOne + i}">+</a>
+                    </div>
             </div>
-        </div>
-        <div class="clothing-card card p-4">
-            <img id=${element.imageName2 + i} src=${element.imageResult2}>
-            <div class="d-flex justify-content-between pt-2">
-                <p>${element.imageName2}</p>
-                <a href="#" id="${element.buttonIdOne + i}">+</a>
+            <div class="clothing-card card p-4">
+                <img id=${element.imageName2 + i} src="https://via.placeholder.com/150"  >
+                    <div class="d-flex justify-content-between pt-2">
+                        <p class="clothing-name">${element.imageName2}</p>
+                        <a href="#" id="${element.buttonIdOne + i}">+</a>
+                    </div>
             </div>
-        </div>
-        <div class="clothing-card card p-4">
-            <img id=${element.imageName3 + i} src=${element.imageResult3}>
-            <div class="d-flex justify-content-between pt-2">
-                <p>${element.imageName3}</p>
-                <a href="#" id="${element.buttonIdOne + i}">+</a>
+            <div class="clothing-card card p-4">
+                    <img id=${element.imageName3 + i} src="https://via.placeholder.com/150" >
+                    <div class="d-flex justify-content-between pt-2">
+                        <p class="clothing-name">${element.imageName3}</p>
+                        <a href="#" id="${element.buttonIdOne + i}">+</a>
+                    </div>
             </div>
-        </div>
         `)
-
             // we append to page
             $('.wrapper').append(newImage)
         })
