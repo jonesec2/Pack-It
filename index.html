@@ -4,20 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Pack-It</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/7b4d2fea99.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body>
-    <input type="text" class="txtb" placeholder="city">
-    
-    
-    
-    
-    <div class="cardContainer"></div>
+<body id="homepage">
+    <div class="navbar-container">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <a class="navbar-brand" href="index.html"><h4>Pack-It</h4></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Search<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="suitcase.html">Suitcase</a>
+                </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <main class="main">
+        <div id="searchContainer" class="container">
+            <div class="row">
+                <div class="col-sm-12 p-0 my-5">
+                    <div class="card main-card p-4">
+                        <div class="row no-gutters">
+                            <h2 class="card-title main-title mb-4 pb-4 w-100 text-center">Where are you going?</h2>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="cityInput" placeholder="ex. Richmond, VA 23226" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit" id="searchBtn"><i class="fas fa-search-location"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div id="weatherContainer" class="container mb-5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="forecast-header w-100 mb-4 text-center">5-Day Forecast for <span id="cityName">[City]</span></h3>
+                </div>
+                <div class="col-sm-12 p-0 mb-2">
+                    <div id="weatherCard1" class="card">
+                        <div class="row no-gutters">
+                            <div class="date-container p-4 bg-secondary text-white">
+                                <div id="day1Date" class="date">[Date]</div>
+                            </div>
+                            <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
+                                <div id="day1Icon" class="weather-icon">[Icon]</div>
+                                <div id="day1Temp" class="temperature">[Temp]</div>
+                                <div id="day1Humid" class="humidity">[Humid]</div>
+                                <div id="day1Wind" class="wind-speed">[Wind]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 p-0 mb-2">
+                    <div id="weatherCard2" class="card">
+                        <div class="row no-gutters">
+                            <div class="date-container p-4 bg-secondary text-white">
+                                <div id="day2Date" class="date">[Date]</div>
+                            </div>
+                            <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
+                                <div id="day2Icon" class="weather-icon">[Icon]</div>
+                                <div id="day2Temp" class="temperature">[Temp]</div>
+                                <div id="day2Humid" class="humidity">[Humid]</div>
+                                <div id="day2Wind" class="wind-speed">[Wind]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 p-0 mb-2">
+                    <div id="weatherCard3" class="card">
+                        <div class="row no-gutters">
+                            <div class="date-container p-4 bg-secondary text-white">
+                                <div id="day3Date" class="date">[Date]</div>
+                            </div>
+                            <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
+                                <div id="day3Icon" class="weather-icon">[Icon]</div>
+                                <div id="day3Temp" class="temperature">[Temp]</div>
+                                <div id="day3Humid" class="humidity">[Humid]</div>
+                                <div id="day3Wind" class="wind-speed">[Wind]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 p-0 mb-2">
+                    <div id="weatherCard4" class="card">
+                        <div class="row no-gutters">
+                            <div class="date-container p-4 bg-secondary text-white">
+                                <div id="day4Date" class="date">[Date]</div>
+                            </div>
+                            <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
+                                <div id="day4Icon" class="weather-icon">[Icon]</div>
+                                <div id="day4Temp" class="temperature">[Temp]</div>
+                                <div id="day4Humid" class="humidity">[Humid]</div>
+                                <div id="day4Wind" class="wind-speed">[Wind]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 p-0 mb-4">
+                    <div id="weatherCard5" class="card">
+                        <div class="row no-gutters">
+                            <div class="date-container p-4 bg-secondary text-white">
+                                <div id="day5Date" class="date">[Date]</div>
+                            </div>
+                            <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
+                                <div id="day5Icon" class="weather-icon">[Icon]</div>
+                                <div id="day5Temp" class="temperature">[Temp]</div>
+                                <div id="day5Humid" class="humidity">[Humid]</div>
+                                <div id="day5Wind" class="wind-speed">[Wind]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 p-0 mb-4"></div>
+                    <button class="m-auto w-100 btn btn-secondary" type="submit" id="getCltothingBtn">Get Clothing Options</button>
+                </div>
+            </div>
+        </div>
 
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="assets\script.js"></script>
+        <div id="suggestedItems">
+            <h3 class="suggestion-header w-100 mb-4 text-center">Suggested Items</h3>
+            <div class="wrapper">
+                <div class="clothing-card card p-4">
+                    <img id="clothing1" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing2" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing3" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing4" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing5" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing6" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing7" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing8" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing9" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing10" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing11" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+                <div class="clothing-card card p-4">
+                    <img id="clothing12" src="https://via.placeholder.com/150">
+                    <div class="d-flex justify-content-between pt-2">
+                        <p id="clothing1Name" class="clothing-name">Item name</p>
+                        <a href="#" class="add-item-btn">+</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer nav justify-content-center py-3 px-0 m-0 mw-100">
+        <p class=footer-text>Copyright 2019 &copy; Pack-It</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+    <script src="assets/script.js"></script>  
 </body>
 </html>
