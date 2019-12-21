@@ -115,12 +115,10 @@ $('#getCltothingBtn').on('click', function () {
         // we can access to append to page as html
         imagesArray.forEach(function (element, i) {
 
-            // creating a div to store our new html
-            var newImage = $('<div>')
-
+            
             // setting the html using an template literal with ``
             // we'll call the imageArray and append to page for as many as we have results
-            newImage.html(/*html*/`
+            var newImage = /*html*/`
             <div class="clothing-card card p-4">
                 <img id=${element.imageName1 + i} src="https://via.placeholder.com/150" >
                     <div class="d-flex justify-content-between pt-2">
@@ -142,7 +140,7 @@ $('#getCltothingBtn').on('click', function () {
                         <a href="#" id="${element.buttonIdOne + i}">+</a>
                     </div>
             </div>
-        `)
+        `
             // we append to page
             $('.wrapper').append(newImage)
         })
