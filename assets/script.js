@@ -38,6 +38,18 @@ $("#searchBtn").on("click", function (e) {
         var row2 = $(".weatherCard")[i]
         var weatherIcon = $(row2).find(".weather-icon")
         weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+        // update temp
+        var row3 = $(".weatherCard")[i]
+        var weatherTemp = $(row3).find(".temperature")
+        weatherTemp.text(obj.main.temp + String.fromCharCode(176) + "F")
+        // update humidity 
+        var row4 = $(".weatherCard")[i]
+        var weatherHumi = $(row4).find(".humidity")
+        weatherHumi.text(obj.main.humidity + "(%)")
+        // update windspeed 
+        var row5 = $(".weatherCard")[i]
+        var windSpeed = $(row5).find(".wind-speed")
+        windSpeed.text(obj.wind.speed)
 
 
 
