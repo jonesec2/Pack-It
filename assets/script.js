@@ -24,7 +24,7 @@ $("#searchBtn").on("click", function (e) {
 
       response.list.forEach(function (obj, i) {
         if (i % 8 === 0) {
-          fiveDayForecast.push(response.list[i + 7])
+          fiveDayForecast.push(response.list[i + 5])
         }
       })
 
