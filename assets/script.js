@@ -1,6 +1,3 @@
-// date: response.list.dt
-// temp: response.main.temp
-// condition: response.weather[0].id
 $("#searchBtn").on("click", function (e) {
 
 
@@ -41,8 +38,6 @@ $("#searchBtn").on("click", function (e) {
         var row2 = $(".weatherCard")[i]
         var weatherIcon = $(row2).find(".weather-icon")
         weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
-
-
 
       });
     });
@@ -122,9 +117,9 @@ var imagesArray = [
 ];
 
 
-var rain = ["Rainboots", "Rainpancho", "Umbrella", "Galoshes", "Rain Pants"];
+var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
 
-var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves"];
+var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
 
 var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
 var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
@@ -141,7 +136,10 @@ var index = 0;
 imagesArray.forEach(function (element) {
     // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
     if (weatherArray[index].condition >= 200 && weatherArray[index].condition <= 531) {
-        element.item1 = rain[Math.floor(Math.random() * rain.length)];
+        var random = Math.floor(Math.random() * rain.length);
+        element.item1 = rain[random];
+        rain.splice(random, 1);
+
         if (weatherArray[index].temp >= 78) {
             var random1 = Math.floor(Math.random() * generalHot.length);
             element.item2 = generalHot[random1];
@@ -182,7 +180,9 @@ imagesArray.forEach(function (element) {
 
     // Group 6xx: Snow
     else if (weatherArray[index].condition >= 600 && weatherArray[index].condition <= 622) {
-        element.item1 = snow[Math.floor(Math.random() * snow.length)];
+        var random = Math.floor(Math.random() * snow.length);
+        element.item1 = snow[random];
+        snow.splice(random, 1);
 
         var random1 = Math.floor(Math.random() * generalCold.length);
         element.item2 = generalCold[random1];
@@ -344,26 +344,32 @@ $('#getCltothingBtn').on('click', function () {
             console.log(element.imageName1 + ": " + element.imageResult1)
 
         });
+
+        // Seohui: I commented these out to save our limited ajax calls ---------------------------------
+
         // second ajax call, this goes over the element.item2 for each object
-        $.ajax({ url: query + element.item2, method: "GET" }).then(function (response) {
+        // $.ajax({ url: query + element.item2, method: "GET" }).then(function (response) {
 
-            // we then store the results back into imagesArray
-            element.imageResult2 = response.items[0].image.thumbnailLink
-            element.imageName2 = response.queries.request[0].searchTerms
+        //     // we then store the results back into imagesArray
+        //     element.imageResult2 = response.items[0].image.thumbnailLink
+        //     element.imageName2 = response.queries.request[0].searchTerms
 
-            console.log(element.imageName2 + ": " + element.imageResult2)
+        //     console.log(element.imageName2 + ": " + element.imageResult2)
 
-        });
+        // });
         // third ajax call, this goes over the element.item3 for each object
-        $.ajax({ url: query + element.item3, method: "GET" }).then(function (response) {
+        // $.ajax({ url: query + element.item3, method: "GET" }).then(function (response) {
 
-            // we then store the results back into imagesArray
-            element.imageResult3 = response.items[0].image.thumbnailLink
-            element.imageName3 = response.queries.request[0].searchTerms
+        //     // we then store the results back into imagesArray
+        //     element.imageResult3 = response.items[0].image.thumbnailLink
+        //     element.imageName3 = response.queries.request[0].searchTerms
 
-            console.log(element.imageName3 + ": " + element.imageResult3)
+        //     console.log(element.imageName3 + ": " + element.imageResult3)
 
-        });
+        // });
+
+        // ---------------------------------------------------------------------------------------------------
+        
     })
 
     // we want to set a timeout function to give the ajax calls time to complete and write to array
@@ -378,9 +384,11 @@ $('#getCltothingBtn').on('click', function () {
 
             // setting the html using an template literal with ``
             // we'll call the imageArray and append to page for as many as we have results
+
+            // Seohui: I enabled only the first image of each day to show up in HTML -----------------------------------------------
             var newImage = /*html*/`
             <div class="clothing-card card p-4">
-                <img id="${element.imageName1 + i}" src="https://via.placeholder.com/150" >
+                <img id="${element.imageName1 + i}" src="${element.imageResult1}" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName1}</p>
                      <a href="#" id="${element.buttonIdOne + i}">+</a>
