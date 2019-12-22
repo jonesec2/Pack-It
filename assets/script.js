@@ -82,14 +82,14 @@ var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves"];
 
 var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
 var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
-var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew" ,"Wool Clothing", "Travel Pants", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
-var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Wool Clothing", "Travel Pants", "Travel Jeans", "Ultra-Light Jackets", "Warm Hat", "Thermals", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket"];
+var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wool Clothing", "Travel Pants", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
+var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Wool Clothing", "Thermal Shirt", "Super Warm Jacket", "Ultra-Light Jackets", "Warm Hat", "Thermals", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
 
 var sunnyHot = ["Sunscreen", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
 var sunnyMild = ["Sunscreen", "Sunglasses", "Water Bottle", "Light-Colored Clothing", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
 
 var weatherArray = [{ date: "GH rain", temp: 82, condition: 210 }, { date: "GM rain", temp: 72, condition: 312 },
-{ date: "GCold snow", temp: 20, condition: 600 }, { date: "GChilly clouds", temp: 62, condition: 751 }, { date: "SM clear", temp: 72, condition: 800 }];
+{ date: "GCold snow", temp: 20, condition: 600 }, { date: "GChilly clouds", temp: 62, condition: 751 }, { date: "SH clear", temp: 92, condition: 800 }];
 
 var index = 0;
 imagesArray.forEach(function (element) {
@@ -286,7 +286,7 @@ $('#getCltothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-        cKey + "&cx=" + cxC + "&searchType=image&q=";
+            cKey + "&cx=" + cxC + "&searchType=image&q=";
 
         // first ajax call, this goes over the element.item1 for each object
         $.ajax({ url: query + element.item1, method: "GET" }).then(function (response) {
@@ -294,6 +294,8 @@ $('#getCltothingBtn').on('click', function () {
             // we then store the results back into imagesArray
             element.imageResult1 = response.items[0].image.thumbnailLink
             element.imageName1 = response.queries.request[0].searchTerms
+
+            console.log(element.imageName1 + ": " + element.imageResult1)
 
         });
         // second ajax call, this goes over the element.item2 for each object
@@ -303,6 +305,8 @@ $('#getCltothingBtn').on('click', function () {
             element.imageResult2 = response.items[0].image.thumbnailLink
             element.imageName2 = response.queries.request[0].searchTerms
 
+            console.log(element.imageName2 + ": " + element.imageResult2)
+
         });
         // third ajax call, this goes over the element.item3 for each object
         $.ajax({ url: query + element.item3, method: "GET" }).then(function (response) {
@@ -310,6 +314,8 @@ $('#getCltothingBtn').on('click', function () {
             // we then store the results back into imagesArray
             element.imageResult3 = response.items[0].image.thumbnailLink
             element.imageName3 = response.queries.request[0].searchTerms
+
+            console.log(element.imageName3 + ": " + element.imageResult3)
 
         });
     })
@@ -323,26 +329,26 @@ $('#getCltothingBtn').on('click', function () {
         // we can access to append to page as html
         imagesArray.forEach(function (element, i) {
 
-            
+
             // setting the html using an template literal with ``
             // we'll call the imageArray and append to page for as many as we have results
             var newImage = /*html*/`
             <div class="clothing-card card p-4">
-                <img id=${element.imageName1 + i} src="https://via.placeholder.com/150" >
+                <img id="${element.imageName1 + i}" src="https://via.placeholder.com/150" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName1}</p>
                      <a href="#" id="${element.buttonIdOne + i}">+</a>
                     </div>
             </div>
             <div class="clothing-card card p-4">
-                <img id=${element.imageName2 + i} src="https://via.placeholder.com/150"  >
+                <img id="${element.imageName2 + i}" src="https://via.placeholder.com/150"  >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName2}</p>
                         <a href="#" id="${element.buttonIdOne + i}">+</a>
                     </div>
             </div>
             <div class="clothing-card card p-4">
-                    <img id=${element.imageName3 + i} src="https://via.placeholder.com/150" >
+                    <img id="${element.imageName3 + i}" src="https://via.placeholder.com/150" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName3}</p>
                         <a href="#" id="${element.buttonIdOne + i}">+</a>
