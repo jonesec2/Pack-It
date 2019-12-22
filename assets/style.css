@@ -7,28 +7,47 @@
     background-color: #ffffff;
 }
   
-#suggestedItems .wrapper {
+#suggestedItems .wrapper,
+#suitcaseItems .wrapper {
     max-width: 960px;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+@media (min-width: 440px) {
+    #suggestedItems .wrapper,
+    #suitcaseItems .wrapper {
+        flex-direction: row;  
+    }
 }
 
 .clothing-card {
-    margin: 5%;
+    margin: 2%;
+    width: 96%;
+    flex: 1 96%;
     padding-bottom: 0!important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 440px) {
     .clothing-card{
-        width: 50%;
+        flex: 1 42%;
     }
 }
+
+@media (min-width: 767px) {
+    .clothing-card{
+        flex: 1 21.333%;
+    }
+}
+
 
 .clothing-card img {
     width: 100%;
 }
 
-  
-  
+
 /* Sticky Footer */
 body {
     display: flex;
