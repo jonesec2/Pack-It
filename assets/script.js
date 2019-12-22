@@ -51,21 +51,18 @@ $("#searchBtn").on("click", function (e) {
         var windSpeed = $(row5).find(".wind-speed")
         windSpeed.text(obj.wind.speed)
 
-
-
       });
     });
 });
 
-// for testing purposes
 var imagesArray = [
     {
-        day: 'one',
-        item1: 'rain hat',
-        item2: 'jacket',
-        item3: 'umbrella',
-        clothingIdOne: 'one',
+        date: null,
+        item1: null,
+        item2: null,
+        item3: null,
         buttonIdOne: 'addItemBtn',
+        clothingIdOne: 'one',
         imageResult1: null,
         imageName1: null,
         imageResult2: null,
@@ -74,12 +71,12 @@ var imagesArray = [
         imageName3: null
     },
     {
-        date: 'two',
-        item1: 'skirt',
-        item2: 'sunglasses',
-        item3: 'sunscreen',
-        clothingIdOne: 'one',
+        date: null,
+        item1: null,
+        item2: null,
+        item3: null,
         buttonIdOne: 'addItemBtn',
+        clothingIdOne: 'one',
         imageResult1: null,
         imageName1: null,
         imageResult2: null,
@@ -88,12 +85,12 @@ var imagesArray = [
         imageName3: null
     },
     {
-        date: 'two',
-        item1: 'skirt',
-        item2: 'sunglasses',
-        item3: 'sunscreen',
-        clothingIdOne: 'one',
+        date: null,
+        item1: null,
+        item2: null,
+        item3: null,
         buttonIdOne: 'addItemBtn',
+        clothingIdOne: 'one',
         imageResult1: null,
         imageName1: null,
         imageResult2: null,
@@ -102,12 +99,12 @@ var imagesArray = [
         imageName3: null
     },
     {
-        date: 'two',
-        item1: 'skirt',
-        item2: 'sunglasses',
-        item3: 'sunscreen',
-        clothingIdOne: 'one',
+        date: null,
+        item1: null,
+        item2: null,
+        item3: null,
         buttonIdOne: 'addItemBtn',
+        clothingIdOne: 'one',
         imageResult1: null,
         imageName1: null,
         imageResult2: null,
@@ -115,9 +112,220 @@ var imagesArray = [
         imageResult3: null,
         imageName3: null
     },
-
+    {
+        date: null,
+        item1: null,
+        item2: null,
+        item3: null,
+        buttonIdOne: 'addItemBtn',
+        clothingIdOne: 'one',
+        imageResult1: null,
+        imageName1: null,
+        imageResult2: null,
+        imageName2: null,
+        imageResult3: null,
+        imageName3: null
+    }
 ];
-//
+
+
+var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
+
+var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
+
+var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wool Clothing", "Travel Pants", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
+var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Wool Clothing", "Thermal Shirt", "Super Warm Jacket", "Ultra-Light Jackets", "Warm Hat", "Thermals", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
+
+var sunnyHot = ["Sunscreen", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
+var sunnyMild = ["Sunscreen", "Sunglasses", "Water Bottle", "Light-Colored Clothing", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
+
+var weatherArray = [{ date: "GH rain", temp: 82, condition: 210 }, { date: "GM rain", temp: 72, condition: 312 },
+{ date: "GCold snow", temp: 20, condition: 600 }, { date: "GChilly clouds", temp: 62, condition: 751 }, { date: "SH clear", temp: 92, condition: 800 }];
+
+var index = 0;
+imagesArray.forEach(function (element) {
+    // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
+    if (weatherArray[index].condition >= 200 && weatherArray[index].condition <= 531) {
+        var random = Math.floor(Math.random() * rain.length);
+        element.item1 = rain[random];
+        rain.splice(random, 1);
+
+        if (weatherArray[index].temp >= 78) {
+            var random1 = Math.floor(Math.random() * generalHot.length);
+            element.item2 = generalHot[random1];
+            generalHot.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalHot.length);
+            element.item3 = generalHot[random2];
+            generalHot.splice(random2, 1);
+        }
+        if (weatherArray[index].temp < 78 && weatherArray[index].temp >= 70) {
+            var random1 = Math.floor(Math.random() * generalMild.length);
+            element.item2 = generalMild[random1];
+            generalMild.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalMild.length);
+            element.item3 = generalMild[random2];
+            generalMild.splice(random2, 1);
+        }
+        if (weatherArray[index].temp < 70 && weatherArray[index].temp >= 50) {
+            var random1 = Math.floor(Math.random() * generalChilly.length);
+            element.item2 = generalChilly[random1];
+            generalChilly.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalChilly.length);
+            element.item3 = generalChilly[random2];
+            generalChilly.splice(random2, 1);
+        }
+        if (weatherArray[index].temp < 50) {
+            var random1 = Math.floor(Math.random() * generalCold.length);
+            element.item2 = generalCold[random1];
+            generalCold.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalCold.length);
+            element.item3 = generalCold[random2];
+            generalCold.splice(random2, 1);
+        }
+    }
+
+    // Group 6xx: Snow
+    else if (weatherArray[index].condition >= 600 && weatherArray[index].condition <= 622) {
+        var random = Math.floor(Math.random() * snow.length);
+        element.item1 = snow[random];
+        snow.splice(random, 1);
+
+        var random1 = Math.floor(Math.random() * generalCold.length);
+        element.item2 = generalCold[random1];
+        generalCold.splice(random1, 1);
+
+        var random2 = Math.floor(Math.random() * generalCold.length);
+        element.item3 = generalCold[random2];
+        generalCold.splice(random2, 1);
+    }
+
+    // Group 7xx: Atmosphere, Group 8xx: Clouds
+    else if (weatherArray[index].condition >= 700 && weatherArray[index].condition <= 781
+        || weatherArray[index].condition >= 801 && weatherArray[index].condition <= 804) {
+
+        if (weatherArray[index].temp >= 78) {
+            var random1 = Math.floor(Math.random() * generalHot.length);
+            element.item1 = generalHot[random1];
+            generalHot.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalHot.length);
+            element.item2 = generalHot[random2];
+            generalHot.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalHot.length);
+            element.item3 = generalHot[random3];
+            generalHot.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 78 && weatherArray[index].temp >= 70) {
+            var random1 = Math.floor(Math.random() * generalMild.length);
+            element.item1 = generalMild[random1];
+            generalMild.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalMild.length);
+            element.item2 = generalMild[random2];
+            generalMild.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalMild.length);
+            element.item3 = generalMild[random3];
+            generalMild.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 70 && weatherArray[index].temp >= 50) {
+            var random1 = Math.floor(Math.random() * generalChilly.length);
+            element.item1 = generalChilly[random1];
+            generalChilly.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalChilly.length);
+            element.item2 = generalChilly[random2];
+            generalChilly.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalChilly.length);
+            element.item3 = generalChilly[random3];
+            generalChilly.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 50) {
+            var random1 = Math.floor(Math.random() * generalCold.length);
+            element.item1 = generalCold[random1];
+            generalCold.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalCold.length);
+            element.item2 = generalCold[random2];
+            generalCold.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalCold.length);
+            element.item3 = generalCold[random3];
+            generalCold.splice(random3, 1);
+        }
+    }
+
+    // Group 800: Clear
+    else {
+        if (weatherArray[index].temp >= 78) {
+            var random1 = Math.floor(Math.random() * sunnyHot.length);
+            element.item1 = sunnyHot[random1];
+            sunnyHot.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * sunnyHot.length);
+            element.item2 = sunnyHot[random2];
+            sunnyHot.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalHot.length);
+            element.item3 = generalHot[random3];
+            generalHot.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 78 && weatherArray[index].temp >= 70) {
+            var random1 = Math.floor(Math.random() * sunnyMild.length);
+            element.item1 = sunnyMild[random1];
+            sunnyMild.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * sunnyMild.length);
+            element.item2 = sunnyMild[random2];
+            sunnyMild.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalMild.length);
+            element.item3 = generalMild[random3];
+            generalMild.splice(random3, 1);
+
+        }
+        if (weatherArray[index].temp < 70 && weatherArray[index].temp >= 50) {
+            var random1 = Math.floor(Math.random() * generalChilly.length);
+            element.item1 = generalChilly[random1];
+            generalChilly.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalChilly.length);
+            element.item2 = generalChilly[random2];
+            generalChilly.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalChilly.length);
+            element.item3 = generalChilly[random3];
+            generalChilly.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 50) {
+            var random1 = Math.floor(Math.random() * generalCold.length);
+            element.item1 = generalCold[random1];
+            generalCold.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalCold.length);
+            element.item2 = generalCold[random2];
+            generalCold.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalCold.length);
+            element.item3 = generalCold[random3];
+            generalCold.splice(random3, 1);
+        }
+
+    }
+    index++;
+});
+
+console.log(weatherArray)
+console.log(imagesArray)
+
 
 // our api keys since we're limited to 40 searches a day
 var sKey = "AIzaSyAChTnaHTlKPUC9c4Wl5B-asTQYREMD06o";
@@ -136,7 +344,7 @@ $('#getCltothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-        cKey + "&cx=" + cxC + "&searchType=image&q=";
+            cKey + "&cx=" + cxC + "&searchType=image&q=";
 
         // first ajax call, this goes over the element.item1 for each object
         $.ajax({ url: query + element.item1, method: "GET" }).then(function (response) {
@@ -145,23 +353,35 @@ $('#getCltothingBtn').on('click', function () {
             element.imageResult1 = response.items[0].image.thumbnailLink
             element.imageName1 = response.queries.request[0].searchTerms
 
+            console.log(element.imageName1 + ": " + element.imageResult1)
+
         });
+
+        // Seohui: I commented these out to save our limited ajax calls ---------------------------------
+
         // second ajax call, this goes over the element.item2 for each object
-        $.ajax({ url: query + element.item2, method: "GET" }).then(function (response) {
+        // $.ajax({ url: query + element.item2, method: "GET" }).then(function (response) {
 
-            // we then store the results back into imagesArray
-            element.imageResult2 = response.items[0].image.thumbnailLink
-            element.imageName2 = response.queries.request[0].searchTerms
+        //     // we then store the results back into imagesArray
+        //     element.imageResult2 = response.items[0].image.thumbnailLink
+        //     element.imageName2 = response.queries.request[0].searchTerms
 
-        });
+        //     console.log(element.imageName2 + ": " + element.imageResult2)
+
+        // });
         // third ajax call, this goes over the element.item3 for each object
-        $.ajax({ url: query + element.item3, method: "GET" }).then(function (response) {
+        // $.ajax({ url: query + element.item3, method: "GET" }).then(function (response) {
 
-            // we then store the results back into imagesArray
-            element.imageResult3 = response.items[0].image.thumbnailLink
-            element.imageName3 = response.queries.request[0].searchTerms
+        //     // we then store the results back into imagesArray
+        //     element.imageResult3 = response.items[0].image.thumbnailLink
+        //     element.imageName3 = response.queries.request[0].searchTerms
 
-        });
+        //     console.log(element.imageName3 + ": " + element.imageResult3)
+
+        // });
+
+        // ---------------------------------------------------------------------------------------------------
+        
     })
 
     // we want to set a timeout function to give the ajax calls time to complete and write to array
@@ -173,26 +393,28 @@ $('#getCltothingBtn').on('click', function () {
         // we can access to append to page as html
         imagesArray.forEach(function (element, i) {
 
-            
+
             // setting the html using an template literal with ``
             // we'll call the imageArray and append to page for as many as we have results
+
+            // Seohui: I enabled only the first image of each day to show up in HTML -----------------------------------------------
             var newImage = /*html*/`
             <div class="clothing-card card p-4">
-                <img id=${element.imageName1 + i} src="https://via.placeholder.com/150" >
+                <img id="${element.imageName1 + i}" src="${element.imageResult1}" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName1}</p>
                      <a href="#" id="${element.buttonIdOne + i}">+</a>
                     </div>
             </div>
             <div class="clothing-card card p-4">
-                <img id=${element.imageName2 + i} src="https://via.placeholder.com/150"  >
+                <img id="${element.imageName2 + i}" src="https://via.placeholder.com/150"  >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName2}</p>
                         <a href="#" id="${element.buttonIdOne + i}">+</a>
                     </div>
             </div>
             <div class="clothing-card card p-4">
-                    <img id=${element.imageName3 + i} src="https://via.placeholder.com/150" >
+                    <img id="${element.imageName3 + i}" src="https://via.placeholder.com/150" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.imageName3}</p>
                         <a href="#" id="${element.buttonIdOne + i}">+</a>
