@@ -461,13 +461,21 @@ var cxJ = "006909077347969630804:48vbvnkdqu9";
 // for each function that will go object by object in out imagesArray
 $('#getClothingBtn').on('click', function () {
 
+    $('#suggestedItems').empty();
+
     var suggestedItems = /*html*/`
     <h3 class="suggestion-header w-100 mb-4 text-center">Suggested Items</h3>
+        <div id="loader"></div>
         <div class="wrapper">
 
         </div>
     `
+
+    var loadIcon = /*html*/`
+    <div class="icon"></div>
+    `
     $('#suggestedItems').append(suggestedItems)
+    $('#loader').append(loadIcon)
 
     // empties out old search results
     $('.wrapper').empty();
@@ -476,7 +484,7 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            jKey + "&cx=" + cxJ + "&searchType=image&q="+element.item1+" 500x500";
+            sKey + "&cx=" + cxS + "&searchType=image&q="+element.item1+" 500x500";
 
             
 
@@ -560,6 +568,9 @@ $('#getClothingBtn').on('click', function () {
             // we append to page
             $('.wrapper').append(newImage)
         })
+        
+        // remove loader after images load 
+        $('#loader').empty();
 
 
         function storeItems() {
