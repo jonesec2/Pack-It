@@ -1,4 +1,124 @@
+// Create empty object for saved items to be locally stored
+var savedItems = [];
 
+$(document).ready(function() {
+    function init() {
+
+        // Get stored savedItems from localStorage
+        storedSavedItems = JSON.parse(localStorage.getItem("savedItems"));
+
+        // If savedItems were retrieved from localStorage, update the savedItems object to it
+        if (storedSavedItems !== null) {
+            savedItems = storedSavedItems;
+        } 
+    
+        displayToSuitcase();
+
+    }
+    init();
+});
+
+
+// Display selected clothing items to suitcase page
+function displayToSuitcase() {
+    // Clear page of cards before updated cards are diplayed (to avoid duplicates)
+    $("#suitcasePage .wrapper").empty();
+    $.each( savedItems, function( key, value ) {
+        var newSuitcaseItem = /*html*/`
+        <div class="clothing-card card p-4">
+            <img src="${value[1]}">
+                <div class="d-flex justify-content-between pt-2">
+                    <p class="clothing-name">${value[0]}</p>
+                <a href="#">-</a>
+                </div>
+        </div>`
+
+        $("#suitcasePage .wrapper").append(newSuitcaseItem);
+    });
+
+    // Give each suitcase card a unique data-button-number to know which to remove later
+    $("#suitcasePage .clothing-card").map(function(i) {
+        $(this).attr("data-card-number", i);
+    })
+}
+
+
+// When a remove button inside of a card is clicked...
+$("#suitcasePage .wrapper").on("click", function(event) {
+    // Prevent link click from redirecting to top of page
+    event.preventDefault();
+
+    var element = event.target;
+
+    if (element.matches("a") === true) {
+        console.log("working");
+        // Get its data-card-number value and remove the item from the suitcase page
+        var index = $(element).parents(".clothing-card").attr("data-card-number");
+        console.log(index);
+        console.log(savedItems);
+        savedItems.splice(index, 1);
+
+        // Store updated items in localStorage, re-render the cards to suitcase page
+        localStorage.setItem("savedItems", JSON.stringify(savedItems));
+        displayToSuitcase();
+    }
+}); 
+
+
+$("#searchBtn").on("click", function (e) {
+  //  var location = $(".form-control").val();
+  var location = "Richmond"
+
+  console.log(location);
+  // grab's the city the entered, after a submit button is made i can turn it into a onlick function
+
+  var APIKey = "298a4f435bb40084f3affdac067f0650";
+
+  var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+
+
+    .then(function (response) {
+      // console.log(response);
+
+      var fiveDayForecast = []
+
+      response.list.forEach(function (obj, i) {
+        if (i % 8 === 0) {
+          fiveDayForecast.push(response.list[i + 5])
+        }
+      })
+
+      fiveDayForecast.forEach(function (obj, i) {
+        var row = $(".weatherCard")[i]
+        // update date to corresponding weatherCard
+        var weatherDate = $(row).find(".date")
+        weatherDate.text(obj.dt_txt.split(" ")[0])
+          console.log(obj)
+        // update icon, temp, humidity, and windspeed to corresponding weatherCard
+        var row2 = $(".weatherCard")[i]
+        var weatherIcon = $(row2).find(".weather-icon")
+        weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+        // update temp
+        var row3 = $(".weatherCard")[i]
+        var weatherTemp = $(row3).find(".temperature")
+        weatherTemp.text(obj.main.temp + String.fromCharCode(176) + "F")
+        // update humidity 
+        var row4 = $(".weatherCard")[i]
+        var weatherHumi = $(row4).find(".humidity")
+        weatherHumi.text(obj.main.humidity + "(%)")
+        // update windspeed 
+        var row5 = $(".weatherCard")[i]
+        var windSpeed = $(row5).find(".wind-speed")
+        windSpeed.text(obj.wind.speed)
+
+      });
+    });
+});
 
 // city weather button
 $("#searchBtn").on("click", function (e) {
@@ -8,10 +128,8 @@ $("#searchBtn").on("click", function (e) {
    
 
    var location = $(".form-control").val();
-//   var location = "Richmond"
 
   console.log(location);
-  // grabds the city the entered, after a submit button is made i can turn it into a onlick function
 
   var APIKey = "298a4f435bb40084f3affdac067f0650";
 
@@ -323,10 +441,8 @@ imagesArray.forEach(function (element) {
     index++;
 });
 
-console.log(weatherArray)
-console.log(imagesArray)
-
-
+// console.log(weatherArray)
+// console.log(imagesArray)
 
 
 // our api keys since we're limited to 40 searches a day
@@ -343,7 +459,7 @@ var cxJ = "006909077347969630804:48vbvnkdqu9";
 
 
 // for each function that will go object by object in out imagesArray
-$('#getCltothingBtn').on('click', function () {
+$('#getClothingBtn').on('click', function () {
 
     var suggestedItems = /*html*/`
     <h3 class="suggestion-header w-100 mb-4 text-center">Suggested Items</h3>
@@ -353,7 +469,7 @@ $('#getCltothingBtn').on('click', function () {
     `
     $('#suggestedItems').append(suggestedItems)
 
-    // empties out old search
+    // empties out old search results
     $('.wrapper').empty();
 
 
@@ -440,8 +556,31 @@ $('#getCltothingBtn').on('click', function () {
                     </div>
             </div>
         `
+
             // we append to page
             $('.wrapper').append(newImage)
         })
+
+
+        function storeItems() {
+            // Local storage
+            $(".clothing-card div a").on("click", function(event) {
+                // Prevent link click from redirecting to top of page
+                event.preventDefault();
+                var imgURL = $(this).parents(".clothing-card").children("img").attr("src");
+                var imgName = $(this).siblings(".clothing-name").text();
+                var itemDataPair = [];
+                itemDataPair[0] = imgName;
+                itemDataPair[1] = imgURL;
+                savedItems.push(itemDataPair);
+
+                localStorage.setItem("savedItems", JSON.stringify(savedItems));
+            });
+        } 
+        storeItems();   
+
     }, 2000)
-})
+
+});
+
+
