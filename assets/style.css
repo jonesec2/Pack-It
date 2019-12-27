@@ -64,6 +64,10 @@ body {
     min-height: auto;
 }
 
+#loader {
+    margin-bottom: 10px;
+}
+
 .icon {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #6c757d; /* Blue */
@@ -75,6 +79,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
   }
   
   @keyframes spin {
