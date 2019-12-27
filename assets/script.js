@@ -568,7 +568,8 @@ $('#getClothingBtn').on('click', function () {
             // we append to page
             $('.wrapper').append(newImage)
         })
-        // remove loader after 
+        
+        // remove loader after images load 
         $('#loader').empty();
 
 
