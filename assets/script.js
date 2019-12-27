@@ -1,6 +1,71 @@
+// Create empty object for saved items to be locally stored
+var savedItems = [];
+
+$(document).ready(function() {
+    function init() {
+
+        // Get stored savedItems from localStorage
+        storedSavedItems = JSON.parse(localStorage.getItem("savedItems"));
+
+        // If savedItems were retrieved from localStorage, update the savedItems object to it
+        if (storedSavedItems !== null) {
+            savedItems = storedSavedItems;
+        } 
+    
+        displayToSuitcase();
+
+    }
+    init();
+});
+
+
+// Display slected clothing items to suitcase page
+function displayToSuitcase() {
+    // Clear page of cards before updated cards are diplayed (to avoid duplicates)
+    $("#suitcasePage .wrapper").empty();
+    $.each( savedItems, function( key, value ) {
+        var newSuitcaseItem = /*html*/`
+        <div class="clothing-card card p-4">
+            <img src="${value[1]}">
+                <div class="d-flex justify-content-between pt-2">
+                    <p class="clothing-name">${value[0]}</p>
+                <a href="#">-</a>
+                </div>
+        </div>`
+
+        $("#suitcasePage .wrapper").append(newSuitcaseItem);
+    });
+
+    // Give each suitecase card a unique data-button-number to know which to remove later
+    $("#suitcasePage .clothing-card").map(function(i) {
+        $(this).attr("data-card-number", i);
+    })
+}
+
+
+// When a remove button inside of a card is clicked...
+$("#suitcasePage .wrapper").on("click", function(event) {
+    // Prevent link click from redirecting to top of page
+    event.preventDefault();
+
+    var element = event.target;
+
+    if (element.matches("a") === true) {
+        console.log("working");
+        // Get its data-card-number value and remove the item from the suitcase page
+        var index = $(element).parents(".clothing-card").attr("data-card-number");
+        console.log(index);
+        console.log(savedItems);
+        savedItems.splice(index, 1);
+
+        // Store updated items in localStorage, re-render the cards to suitcase page
+        localStorage.setItem("savedItems", JSON.stringify(savedItems));
+        displayToSuitcase();
+    }
+}); 
+
+
 $("#searchBtn").on("click", function (e) {
-
-
   //  var location = $(".form-control").val();
   var location = "Richmond"
 
@@ -323,8 +388,8 @@ imagesArray.forEach(function (element) {
     index++;
 });
 
-console.log(weatherArray)
-console.log(imagesArray)
+// console.log(weatherArray)
+// console.log(imagesArray)
 
 
 // our api keys since we're limited to 40 searches a day
@@ -340,7 +405,7 @@ var cxM = "009075084732258994516:lralsp7otlc";
 
 
 // for each function that will go object by object in out imagesArray
-$('#getCltothingBtn').on('click', function () {
+$('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
@@ -421,8 +486,31 @@ $('#getCltothingBtn').on('click', function () {
                     </div>
             </div>
         `
+
             // we append to page
             $('.wrapper').append(newImage)
         })
+
+
+        function storeItems() {
+            // Local storage
+            $(".clothing-card div a").on("click", function(event) {
+                // Prevent link click from redirecting to top of page
+                event.preventDefault();
+                var imgURL = $(this).parents(".clothing-card").children("img").attr("src");
+                var imgName = $(this).siblings(".clothing-name").text();
+                var itemDataPair = [];
+                itemDataPair[0] = imgName;
+                itemDataPair[1] = imgURL;
+                savedItems.push(itemDataPair);
+
+                localStorage.setItem("savedItems", JSON.stringify(savedItems));
+            });
+        } 
+        storeItems();   
+
     }, 2000)
-})
+
+});
+
+
