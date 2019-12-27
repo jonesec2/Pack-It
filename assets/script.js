@@ -477,11 +477,6 @@ $('#getClothingBtn').on('click', function () {
     $('#suggestedItems').append(suggestedItems)
     $('#loader').append(loadIcon)
 
-    window.addEventListener("load", function(){
-        icon.style.display ='none';
-    })
-
-
     // empties out old search results
     $('.wrapper').empty();
 
@@ -573,6 +568,7 @@ $('#getClothingBtn').on('click', function () {
             // we append to page
             $('.wrapper').append(newImage)
         })
+        // remove loader after 
         $('#loader').empty();
 
 
