@@ -64,6 +64,9 @@ $("#suitcasePage .wrapper").on("click", function(event) {
     }
 }); 
 
+// creating object to store local weather data
+ 
+var citweather = localStorage.getItem("cit-name");
 
 // city weather button
 $("#searchBtn").on("click", function (e) {
@@ -71,10 +74,13 @@ $("#searchBtn").on("click", function (e) {
     // empties out old city name
     $('#cityName').empty();
    
-
+   // grabs city name from text input area
    var location = $(".form-control").val();
 
   console.log(location);
+  //setting city into local storage
+  localStorage.setItem("cit-name", (location));
+   
 
   var APIKey = "298a4f435bb40084f3affdac067f0650";
 
@@ -101,7 +107,7 @@ $("#searchBtn").on("click", function (e) {
         // update date to corresponding weatherCard
         var weatherDate = $(row).find(".date")
         weatherDate.text(obj.dt_txt.split(" ")[0])
-          console.log(obj)
+        
         // update icon, temp, humidity, and windspeed to corresponding weatherCard
         var row2 = $(".weatherCard")[i]
         var weatherIcon = $(row2).find(".weather-icon")
@@ -122,6 +128,60 @@ $("#searchBtn").on("click", function (e) {
       });
     });
 });
+
+// weather from local storage + second api
+ $(document).ready(function(){
+  
+    if (citweather !== null){
+        
+        var APIKey = "298a4f435bb40084f3affdac067f0650";
+
+        var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
+      
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function (response) {
+            // console.log(response);
+      
+            var fiveDayForecast = []
+      
+            $('#cityName').append(citweather)
+      
+            response.list.forEach(function (obj, i) {
+              if (i % 8 === 0) {
+                fiveDayForecast.push(response.list[i + 5])
+              }
+            })
+      
+            fiveDayForecast.forEach(function (obj, i) {
+              var row = $(".weatherCard")[i]
+              // update date to corresponding weatherCard
+              var weatherDate = $(row).find(".date")
+              weatherDate.text(obj.dt_txt.split(" ")[0])
+                console.log(obj)
+              // update icon, temp, humidity, and windspeed to corresponding weatherCard
+              var row2 = $(".weatherCard")[i]
+              var weatherIcon = $(row2).find(".weather-icon")
+              weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+              // update temp
+              var row3 = $(".weatherCard")[i]
+              var weatherTemp = $(row3).find(".temperature")
+              weatherTemp.text(obj.main.temp + " " + String.fromCharCode(176) + "F")
+              // update humidity 
+              var row4 = $(".weatherCard")[i]
+              var weatherHumi = $(row4).find(".humidity")
+              weatherHumi.text(obj.main.humidity + "%")
+              // update windspeed 
+              var row5 = $(".weatherCard")[i]
+              var windSpeed = $(row5).find(".wind-speed")
+              windSpeed.text(obj.wind.speed)
+      
+            });
+          });
+    }
+
+ })
 
 var imagesArray = [
     {
