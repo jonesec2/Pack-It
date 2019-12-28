@@ -184,8 +184,10 @@ $("#searchBtn").on("click", function (e) {
             weatherArray[i].condition = obj.weather[0].id;
         });
 
-        // console.log(weatherArray);
-        // console.log(imagesArray);
+        suggestItems();
+
+        console.log(weatherArray);
+        console.log(imagesArray);
     });
 });
 
@@ -258,53 +260,70 @@ var imagesArray = [
 ];
 
 
-var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
+function suggestItems() {
+    var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
 
-var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
+    var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
 
-var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
-var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
-var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wide-Leg Pants", "Beanie", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
-var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Turtleneck", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
+    var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+    var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+    var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wide-Leg Pants", "Beanie", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
+    var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Turtleneck", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
 
-var sunnyHot = ["Sunscreen", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
-var sunnyMild = ["Sunscreen", "Sunglasses", "Water Bottle", "Light-Colored Clothing", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
+    var sunnyHot = ["Sunscreen", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
+    var sunnyMild = ["Sunscreen", "Sunglasses", "Water Bottle", "Light-Colored Clothing", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
 
-imagesArray.forEach(function (element, i) {
-    // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
-    if (weatherArray[i].condition >= 200 && weatherArray[i].condition <= 531) {
-        var random = Math.floor(Math.random() * rain.length);
-        element.item1 = rain[random];
-        rain.splice(random, 1);
+    imagesArray.forEach(function (element, i) {
+        // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
+        if (weatherArray[i].condition >= 200 && weatherArray[i].condition <= 531) {
+            var random = Math.floor(Math.random() * rain.length);
+            element.item1 = rain[random];
+            rain.splice(random, 1);
 
-        if (weatherArray[i].temp >= 78) {
-            var random1 = Math.floor(Math.random() * generalHot.length);
-            element.item2 = generalHot[random1];
-            generalHot.splice(random1, 1);
+            if (weatherArray[i].temp >= 78) {
+                var random1 = Math.floor(Math.random() * generalHot.length);
+                element.item2 = generalHot[random1];
+                generalHot.splice(random1, 1);
 
-            var random2 = Math.floor(Math.random() * generalHot.length);
-            element.item3 = generalHot[random2];
-            generalHot.splice(random2, 1);
+                var random2 = Math.floor(Math.random() * generalHot.length);
+                element.item3 = generalHot[random2];
+                generalHot.splice(random2, 1);
+            }
+            if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
+                var random1 = Math.floor(Math.random() * generalMild.length);
+                element.item2 = generalMild[random1];
+                generalMild.splice(random1, 1);
+
+                var random2 = Math.floor(Math.random() * generalMild.length);
+                element.item3 = generalMild[random2];
+                generalMild.splice(random2, 1);
+            }
+            if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
+                var random1 = Math.floor(Math.random() * generalChilly.length);
+                element.item2 = generalChilly[random1];
+                generalChilly.splice(random1, 1);
+
+                var random2 = Math.floor(Math.random() * generalChilly.length);
+                element.item3 = generalChilly[random2];
+                generalChilly.splice(random2, 1);
+            }
+            if (weatherArray[i].temp < 50) {
+                var random1 = Math.floor(Math.random() * generalCold.length);
+                element.item2 = generalCold[random1];
+                generalCold.splice(random1, 1);
+
+                var random2 = Math.floor(Math.random() * generalCold.length);
+                element.item3 = generalCold[random2];
+                generalCold.splice(random2, 1);
+            }
         }
-        if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
-            var random1 = Math.floor(Math.random() * generalMild.length);
-            element.item2 = generalMild[random1];
-            generalMild.splice(random1, 1);
 
-            var random2 = Math.floor(Math.random() * generalMild.length);
-            element.item3 = generalMild[random2];
-            generalMild.splice(random2, 1);
-        }
-        if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
-            var random1 = Math.floor(Math.random() * generalChilly.length);
-            element.item2 = generalChilly[random1];
-            generalChilly.splice(random1, 1);
+        // Group 6xx: Snow
+        else if (weatherArray[i].condition >= 600 && weatherArray[i].condition <= 622) {
+            var random = Math.floor(Math.random() * snow.length);
+            element.item1 = snow[random];
+            snow.splice(random, 1);
 
-            var random2 = Math.floor(Math.random() * generalChilly.length);
-            element.item3 = generalChilly[random2];
-            generalChilly.splice(random2, 1);
-        }
-        if (weatherArray[i].temp < 50) {
             var random1 = Math.floor(Math.random() * generalCold.length);
             element.item2 = generalCold[random1];
             generalCold.splice(random1, 1);
@@ -313,141 +332,126 @@ imagesArray.forEach(function (element, i) {
             element.item3 = generalCold[random2];
             generalCold.splice(random2, 1);
         }
-    }
 
-    // Group 6xx: Snow
-    else if (weatherArray[i].condition >= 600 && weatherArray[i].condition <= 622) {
-        var random = Math.floor(Math.random() * snow.length);
-        element.item1 = snow[random];
-        snow.splice(random, 1);
+        // Group 7xx: Atmosphere, Group 8xx: Clouds
+        else if (weatherArray[i].condition >= 700 && weatherArray[i].condition <= 781
+            || weatherArray[i].condition >= 801 && weatherArray[i].condition <= 804) {
 
-        var random1 = Math.floor(Math.random() * generalCold.length);
-        element.item2 = generalCold[random1];
-        generalCold.splice(random1, 1);
+            if (weatherArray[i].temp >= 78) {
+                var random1 = Math.floor(Math.random() * generalHot.length);
+                element.item1 = generalHot[random1];
+                generalHot.splice(random1, 1);
 
-        var random2 = Math.floor(Math.random() * generalCold.length);
-        element.item3 = generalCold[random2];
-        generalCold.splice(random2, 1);
-    }
+                var random2 = Math.floor(Math.random() * generalHot.length);
+                element.item2 = generalHot[random2];
+                generalHot.splice(random2, 1);
 
-    // Group 7xx: Atmosphere, Group 8xx: Clouds
-    else if (weatherArray[i].condition >= 700 && weatherArray[i].condition <= 781
-        || weatherArray[i].condition >= 801 && weatherArray[i].condition <= 804) {
+                var random3 = Math.floor(Math.random() * generalHot.length);
+                element.item3 = generalHot[random3];
+                generalHot.splice(random3, 1);
+            }
+            if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
+                var random1 = Math.floor(Math.random() * generalMild.length);
+                element.item1 = generalMild[random1];
+                generalMild.splice(random1, 1);
 
-        if (weatherArray[i].temp >= 78) {
-            var random1 = Math.floor(Math.random() * generalHot.length);
-            element.item1 = generalHot[random1];
-            generalHot.splice(random1, 1);
+                var random2 = Math.floor(Math.random() * generalMild.length);
+                element.item2 = generalMild[random2];
+                generalMild.splice(random2, 1);
 
-            var random2 = Math.floor(Math.random() * generalHot.length);
-            element.item2 = generalHot[random2];
-            generalHot.splice(random2, 1);
+                var random3 = Math.floor(Math.random() * generalMild.length);
+                element.item3 = generalMild[random3];
+                generalMild.splice(random3, 1);
+            }
+            if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
+                var random1 = Math.floor(Math.random() * generalChilly.length);
+                element.item1 = generalChilly[random1];
+                generalChilly.splice(random1, 1);
 
-            var random3 = Math.floor(Math.random() * generalHot.length);
-            element.item3 = generalHot[random3];
-            generalHot.splice(random3, 1);
-        }
-        if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
-            var random1 = Math.floor(Math.random() * generalMild.length);
-            element.item1 = generalMild[random1];
-            generalMild.splice(random1, 1);
+                var random2 = Math.floor(Math.random() * generalChilly.length);
+                element.item2 = generalChilly[random2];
+                generalChilly.splice(random2, 1);
 
-            var random2 = Math.floor(Math.random() * generalMild.length);
-            element.item2 = generalMild[random2];
-            generalMild.splice(random2, 1);
+                var random3 = Math.floor(Math.random() * generalChilly.length);
+                element.item3 = generalChilly[random3];
+                generalChilly.splice(random3, 1);
+            }
+            if (weatherArray[i].temp < 50) {
+                var random1 = Math.floor(Math.random() * generalCold.length);
+                element.item1 = generalCold[random1];
+                generalCold.splice(random1, 1);
 
-            var random3 = Math.floor(Math.random() * generalMild.length);
-            element.item3 = generalMild[random3];
-            generalMild.splice(random3, 1);
-        }
-        if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
-            var random1 = Math.floor(Math.random() * generalChilly.length);
-            element.item1 = generalChilly[random1];
-            generalChilly.splice(random1, 1);
+                var random2 = Math.floor(Math.random() * generalCold.length);
+                element.item2 = generalCold[random2];
+                generalCold.splice(random2, 1);
 
-            var random2 = Math.floor(Math.random() * generalChilly.length);
-            element.item2 = generalChilly[random2];
-            generalChilly.splice(random2, 1);
-
-            var random3 = Math.floor(Math.random() * generalChilly.length);
-            element.item3 = generalChilly[random3];
-            generalChilly.splice(random3, 1);
-        }
-        if (weatherArray[i].temp < 50) {
-            var random1 = Math.floor(Math.random() * generalCold.length);
-            element.item1 = generalCold[random1];
-            generalCold.splice(random1, 1);
-
-            var random2 = Math.floor(Math.random() * generalCold.length);
-            element.item2 = generalCold[random2];
-            generalCold.splice(random2, 1);
-
-            var random3 = Math.floor(Math.random() * generalCold.length);
-            element.item3 = generalCold[random3];
-            generalCold.splice(random3, 1);
-        }
-    }
-
-    // Group 800: Clear
-    else {
-        if (weatherArray[i].temp >= 78) {
-            var random1 = Math.floor(Math.random() * sunnyHot.length);
-            element.item1 = sunnyHot[random1];
-            sunnyHot.splice(random1, 1);
-
-            var random2 = Math.floor(Math.random() * sunnyHot.length);
-            element.item2 = sunnyHot[random2];
-            sunnyHot.splice(random2, 1);
-
-            var random3 = Math.floor(Math.random() * generalHot.length);
-            element.item3 = generalHot[random3];
-            generalHot.splice(random3, 1);
-        }
-        if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
-            var random1 = Math.floor(Math.random() * sunnyMild.length);
-            element.item1 = sunnyMild[random1];
-            sunnyMild.splice(random1, 1);
-
-            var random2 = Math.floor(Math.random() * sunnyMild.length);
-            element.item2 = sunnyMild[random2];
-            sunnyMild.splice(random2, 1);
-
-            var random3 = Math.floor(Math.random() * generalMild.length);
-            element.item3 = generalMild[random3];
-            generalMild.splice(random3, 1);
-
-        }
-        if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
-            var random1 = Math.floor(Math.random() * generalChilly.length);
-            element.item1 = generalChilly[random1];
-            generalChilly.splice(random1, 1);
-
-            var random2 = Math.floor(Math.random() * generalChilly.length);
-            element.item2 = generalChilly[random2];
-            generalChilly.splice(random2, 1);
-
-            var random3 = Math.floor(Math.random() * generalChilly.length);
-            element.item3 = generalChilly[random3];
-            generalChilly.splice(random3, 1);
-        }
-        if (weatherArray[i].temp < 50) {
-            var random1 = Math.floor(Math.random() * generalCold.length);
-            element.item1 = generalCold[random1];
-            generalCold.splice(random1, 1);
-
-            var random2 = Math.floor(Math.random() * generalCold.length);
-            element.item2 = generalCold[random2];
-            generalCold.splice(random2, 1);
-
-            var random3 = Math.floor(Math.random() * generalCold.length);
-            element.item3 = generalCold[random3];
-            generalCold.splice(random3, 1);
+                var random3 = Math.floor(Math.random() * generalCold.length);
+                element.item3 = generalCold[random3];
+                generalCold.splice(random3, 1);
+            }
         }
 
-    }
-});
+        // Group 800: Clear
+        else {
+            if (weatherArray[i].temp >= 78) {
+                var random1 = Math.floor(Math.random() * sunnyHot.length);
+                element.item1 = sunnyHot[random1];
+                sunnyHot.splice(random1, 1);
 
-// console.log(imagesArray);
+                var random2 = Math.floor(Math.random() * sunnyHot.length);
+                element.item2 = sunnyHot[random2];
+                sunnyHot.splice(random2, 1);
+
+                var random3 = Math.floor(Math.random() * generalHot.length);
+                element.item3 = generalHot[random3];
+                generalHot.splice(random3, 1);
+            }
+            if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
+                var random1 = Math.floor(Math.random() * sunnyMild.length);
+                element.item1 = sunnyMild[random1];
+                sunnyMild.splice(random1, 1);
+
+                var random2 = Math.floor(Math.random() * sunnyMild.length);
+                element.item2 = sunnyMild[random2];
+                sunnyMild.splice(random2, 1);
+
+                var random3 = Math.floor(Math.random() * generalMild.length);
+                element.item3 = generalMild[random3];
+                generalMild.splice(random3, 1);
+
+            }
+            if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
+                var random1 = Math.floor(Math.random() * generalChilly.length);
+                element.item1 = generalChilly[random1];
+                generalChilly.splice(random1, 1);
+
+                var random2 = Math.floor(Math.random() * generalChilly.length);
+                element.item2 = generalChilly[random2];
+                generalChilly.splice(random2, 1);
+
+                var random3 = Math.floor(Math.random() * generalChilly.length);
+                element.item3 = generalChilly[random3];
+                generalChilly.splice(random3, 1);
+            }
+            if (weatherArray[i].temp < 50) {
+                var random1 = Math.floor(Math.random() * generalCold.length);
+                element.item1 = generalCold[random1];
+                generalCold.splice(random1, 1);
+
+                var random2 = Math.floor(Math.random() * generalCold.length);
+                element.item2 = generalCold[random2];
+                generalCold.splice(random2, 1);
+
+                var random3 = Math.floor(Math.random() * generalCold.length);
+                element.item3 = generalCold[random3];
+                generalCold.splice(random3, 1);
+            }
+
+        }
+    });
+
+    console.log(imagesArray);
+}
 
 // our api keys since we're limited to 40 searches a day
 var sKey = "AIzaSyAChTnaHTlKPUC9c4Wl5B-asTQYREMD06o";
