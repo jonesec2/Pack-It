@@ -68,64 +68,12 @@ $("#suitcasePage .wrapper").on("click", function (event) {
     }
 });
 
+// creating object to store local weather data
 
-// $("#searchBtn").on("click", function (e) {
-//     //  var location = $(".form-control").val();
-//     var location = "Richmond"
+var citweather = localStorage.getItem("cit-name");
 
-//     console.log(location);
-//     // grab's the city the entered, after a submit button is made i can turn it into a onlick function
-
-//     var APIKey = "298a4f435bb40084f3affdac067f0650";
-
-//     var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
-
-//     $.ajax({
-//         url: queryURL,
-//         method: "GET"
-//     })
-
-
-//         .then(function (response) {
-//             // console.log(response);
-
-//             var fiveDayForecast = []
-
-//             response.list.forEach(function (obj, i) {
-//                 if (i % 8 === 0) {
-//                     fiveDayForecast.push(response.list[i + 5])
-//                 }
-//             })
-
-//             fiveDayForecast.forEach(function (obj, i) {
-//                 var row = $(".weatherCard")[i]
-//                 // update date to corresponding weatherCard
-//                 var weatherDate = $(row).find(".date")
-//                 weatherDate.text(obj.dt_txt.split(" ")[0])
-//                 console.log(obj)
-//                 // update icon, temp, humidity, and windspeed to corresponding weatherCard
-//                 var row2 = $(".weatherCard")[i]
-//                 var weatherIcon = $(row2).find(".weather-icon")
-//                 weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
-//                 // update temp
-//                 var row3 = $(".weatherCard")[i]
-//                 var weatherTemp = $(row3).find(".temperature")
-//                 weatherTemp.text(obj.main.temp + String.fromCharCode(176) + "F")
-//                 // update humidity 
-//                 var row4 = $(".weatherCard")[i]
-//                 var weatherHumi = $(row4).find(".humidity")
-//                 weatherHumi.text(obj.main.humidity + "(%)")
-//                 // update windspeed 
-//                 var row5 = $(".weatherCard")[i]
-//                 var windSpeed = $(row5).find(".wind-speed")
-//                 windSpeed.text(obj.wind.speed)
-
-//             });
-//         });
-// });
-
- // If a user presses enter, do the same thing as clicking city weather button 
- $(".form-control").keypress(function (e) {
+// If a user presses enter, do the same thing as clicking city weather button (Seohui)
+$(".form-control").keypress(function (e) {
     var key = e.which;
     if (key == 13) {
         $("#searchBtn").click();
@@ -139,8 +87,16 @@ $("#searchBtn").on("click", function (e) {
     // empties out old city name
     $('#cityName').empty();
 
+    // Empties suggested items generated from previous search (Seohui)
+    $('#suggestedItems').empty();
 
+    // grabs city name from text input area
     var location = $(".form-control").val();
+
+    console.log(location);
+    //setting city into local storage
+    localStorage.setItem("cit-name", (location));
+
 
     console.log(location);
 
@@ -156,8 +112,6 @@ $("#searchBtn").on("click", function (e) {
 
         var fiveDayForecast = []
 
-        $('#cityName').append(location)
-
         response.list.forEach(function (obj, i) {
             if (i % 8 === 0) {
                 fiveDayForecast.push(response.list[i + 5])
@@ -169,7 +123,7 @@ $("#searchBtn").on("click", function (e) {
             // update date to corresponding weatherCard
             var weatherDate = $(row).find(".date")
             weatherDate.text(obj.dt_txt.split(" ")[0])
-            console.log(obj)
+
             // update icon, temp, humidity, and windspeed to corresponding weatherCard
             var row2 = $(".weatherCard")[i]
             var weatherIcon = $(row2).find(".weather-icon")
@@ -187,22 +141,75 @@ $("#searchBtn").on("click", function (e) {
             var windSpeed = $(row5).find(".wind-speed")
             windSpeed.text(obj.wind.speed)
 
-            // Connecting weather API data to keywords generated in terms of weather conditions
+            // Connecting weather API data to keywords generated in terms of weather conditions (Seohui)
             imagesArray[i].date = obj.dt_txt.split(" ")[0];
             weatherArray[i].temp = obj.main.temp;
             weatherArray[i].condition = obj.weather[0].id;
         });
 
-        // It would run a function that will update items in imagesArray
+        // It would run a function that will update items in imagesArray (Seohui)
         suggestItems();
 
-        // Once the city weather button is clicked, it will display get-clothing-options button
+        // Once the city weather button is clicked, it will display get-clothing-options button (Seohui)
         $("#getClothingBtn").css("display", "block");
 
         console.log(weatherArray);
-        console.log(imagesArray);
     });
 });
+
+// weather from local storage + second api
+$(document).ready(function () {
+
+    if (citweather !== null) {
+
+        var APIKey = "298a4f435bb40084f3affdac067f0650";
+
+        var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            // console.log(response);
+
+            var fiveDayForecast = []
+
+            $('#cityName').append(citweather)
+
+            response.list.forEach(function (obj, i) {
+                if (i % 8 === 0) {
+                    fiveDayForecast.push(response.list[i + 5])
+                }
+            })
+
+            fiveDayForecast.forEach(function (obj, i) {
+                var row = $(".weatherCard")[i]
+                // update date to corresponding weatherCard
+                var weatherDate = $(row).find(".date")
+                weatherDate.text(obj.dt_txt.split(" ")[0])
+                console.log(obj)
+                // update icon, temp, humidity, and windspeed to corresponding weatherCard
+                var row2 = $(".weatherCard")[i]
+                var weatherIcon = $(row2).find(".weather-icon")
+                weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+                // update temp
+                var row3 = $(".weatherCard")[i]
+                var weatherTemp = $(row3).find(".temperature")
+                weatherTemp.text(obj.main.temp + " " + String.fromCharCode(176) + "F")
+                // update humidity 
+                var row4 = $(".weatherCard")[i]
+                var weatherHumi = $(row4).find(".humidity")
+                weatherHumi.text(obj.main.humidity + "%")
+                // update windspeed 
+                var row5 = $(".weatherCard")[i]
+                var windSpeed = $(row5).find(".wind-speed")
+                windSpeed.text(obj.wind.speed)
+            });
+
+        });
+    }
+
+})
 
 var imagesArray = [
     {
