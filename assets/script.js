@@ -124,6 +124,15 @@ $("#suitcasePage .wrapper").on("click", function (event) {
 //         });
 // });
 
+ // If a user presses enter, do the same thing as clicking city weather button 
+ $(".form-control").keypress(function (e) {
+    var key = e.which;
+    if (key == 13) {
+        $("#searchBtn").click();
+        return false;
+    }
+});
+
 // city weather button
 $("#searchBtn").on("click", function (e) {
 
@@ -184,7 +193,11 @@ $("#searchBtn").on("click", function (e) {
             weatherArray[i].condition = obj.weather[0].id;
         });
 
+        // It would run a function that will update items in imagesArray
         suggestItems();
+
+        // Once the city weather button is clicked, it will display get-clothing-options button
+        $("#getClothingBtn").css("display", "block");
 
         console.log(weatherArray);
         console.log(imagesArray);
