@@ -18300,24 +18300,6 @@ footer p {
   margin-left: auto;
 }
 
-.clothing-card div {
-  padding: 1em;
-  background-color: #1d384a;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.clothing-card div p {
-  color: #fff;
-}
-
-.clothing-card div a {
-  background-color: #fff;
-  border-radius: 50%;
-  padding: .5em 1em;
-}
-
 /* ---- Sticky Footer */
 body {
   display: -webkit-box;
