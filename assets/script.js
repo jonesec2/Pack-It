@@ -25,7 +25,7 @@ $(document).ready(function () {
 
 // Display selected clothing items to suitcase page
 function displayToSuitcase() {
-    // Clear page of cards before updated cards are diplayed (to avoid duplicates)
+    // Clear page of cards before updated cards are displayed (to avoid duplicates)
     $("#suitcasePage .wrapper").empty();
     $.each(savedItems, function (key, value) {
         var newSuitcaseItem = /*html*/`
@@ -90,8 +90,12 @@ $("#searchBtn").on("click", function (e) {
     // Empties suggested items generated from previous search (Seohui)
     $('#suggestedItems').empty();
 
+
     // grabs city name from text input area
-    var location = $(".form-control").val();
+    var location = $(".form-control").val(); 
+
+    // sets city-name = to user type
+    $('#cityName').text(location)
 
     console.log(location);
     //setting city into local storage
