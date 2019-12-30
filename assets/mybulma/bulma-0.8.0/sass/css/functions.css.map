@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../utilities/functions.sass"
+    ],
+    "names": [],
+    "file": "functions.css"
+}

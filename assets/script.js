@@ -1,11 +1,7 @@
 // Create empty object for saved items to be locally stored
 var savedItems = [];
 
-// Weather data array to generate keywords for image search
-var weatherArray = [{ temp: null, condition: null }, { temp: null, condition: null },
-{ temp: null, condition: null }, { temp: null, condition: null }, { temp: null, condition: null }];
-
-$(document).ready(function () {
+$(document).ready(function() {
     function init() {
 
         // Get stored savedItems from localStorage
@@ -14,8 +10,8 @@ $(document).ready(function () {
         // If savedItems were retrieved from localStorage, update the savedItems object to it
         if (storedSavedItems !== null) {
             savedItems = storedSavedItems;
-        }
-
+        } 
+    
         displayToSuitcase();
 
     }
@@ -27,7 +23,7 @@ $(document).ready(function () {
 function displayToSuitcase() {
     // Clear page of cards before updated cards are diplayed (to avoid duplicates)
     $("#suitcasePage .wrapper").empty();
-    $.each(savedItems, function (key, value) {
+    $.each( savedItems, function( key, value ) {
         var newSuitcaseItem = /*html*/`
         <div class="clothing-card card p-4">
             <img src="${value[1]}">
@@ -41,14 +37,14 @@ function displayToSuitcase() {
     });
 
     // Give each suitcase card a unique data-button-number to know which to remove later
-    $("#suitcasePage .clothing-card").map(function (i) {
+    $("#suitcasePage .clothing-card").map(function(i) {
         $(this).attr("data-card-number", i);
     })
 }
 
 
 // When a remove button inside of a card is clicked...
-$("#suitcasePage .wrapper").on("click", function (event) {
+$("#suitcasePage .wrapper").on("click", function(event) {
     // Prevent link click from redirecting to top of page
     event.preventDefault();
 
@@ -66,150 +62,121 @@ $("#suitcasePage .wrapper").on("click", function (event) {
         localStorage.setItem("savedItems", JSON.stringify(savedItems));
         displayToSuitcase();
     }
-});
+}); 
 
-// creating object to store local weather data
 
-var citweather = localStorage.getItem("cit-name");
+$("#searchBtn").on("click", function (e) {
+  //  var location = $(".form-control").val();
+  var location = "Richmond"
 
-// If a user presses enter, do the same thing as clicking city weather button (Seohui)
-$(".form-control").keypress(function (e) {
-    var key = e.which;
-    if (key == 13) {
-        $("#searchBtn").click();
-        return false;
-    }
+  console.log(location);
+  // grab's the city the entered, after a submit button is made i can turn it into a onlick function
+
+  var APIKey = "298a4f435bb40084f3affdac067f0650";
+
+  var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+
+
+    .then(function (response) {
+      // console.log(response);
+
+      var fiveDayForecast = []
+
+      response.list.forEach(function (obj, i) {
+        if (i % 8 === 0) {
+          fiveDayForecast.push(response.list[i + 5])
+        }
+      })
+
+      fiveDayForecast.forEach(function (obj, i) {
+        var row = $(".weatherCard")[i]
+        // update date to corresponding weatherCard
+        var weatherDate = $(row).find(".date")
+        weatherDate.text(obj.dt_txt.split(" ")[0])
+          console.log(obj)
+        // update icon, temp, humidity, and windspeed to corresponding weatherCard
+        var row2 = $(".weatherCard")[i]
+        var weatherIcon = $(row2).find(".weather-icon")
+        weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+        // update temp
+        var row3 = $(".weatherCard")[i]
+        var weatherTemp = $(row3).find(".temperature")
+        weatherTemp.text(obj.main.temp + String.fromCharCode(176) + "F")
+        // update humidity 
+        var row4 = $(".weatherCard")[i]
+        var weatherHumi = $(row4).find(".humidity")
+        weatherHumi.text(obj.main.humidity + "(%)")
+        // update windspeed 
+        var row5 = $(".weatherCard")[i]
+        var windSpeed = $(row5).find(".wind-speed")
+        windSpeed.text(obj.wind.speed)
+
+      });
+    });
 });
 
 // city weather button
 $("#searchBtn").on("click", function (e) {
-
+    
     // empties out old city name
     $('#cityName').empty();
+   
 
-    // Empties suggested items generated from previous search (Seohui)
-    $('#suggestedItems').empty();
+   var location = $(".form-control").val();
 
-    // grabs city name from text input area
-    var location = $(".form-control").val();
+  console.log(location);
 
-    console.log(location);
-    //setting city into local storage
-    localStorage.setItem("cit-name", (location));
+  var APIKey = "298a4f435bb40084f3affdac067f0650";
 
+  var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
 
-    console.log(location);
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
+      // console.log(response);
 
-    var APIKey = "298a4f435bb40084f3affdac067f0650";
+      var fiveDayForecast = []
 
-    var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
+      $('#cityName').append(location)
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        // console.log(response);
+      response.list.forEach(function (obj, i) {
+        if (i % 8 === 0) {
+          fiveDayForecast.push(response.list[i + 5])
+        }
+      })
 
-        var fiveDayForecast = []
+      fiveDayForecast.forEach(function (obj, i) {
+        var row = $(".weatherCard")[i]
+        // update date to corresponding weatherCard
+        var weatherDate = $(row).find(".date")
+        weatherDate.text(obj.dt_txt.split(" ")[0])
+          console.log(obj)
+        // update icon, temp, humidity, and windspeed to corresponding weatherCard
+        var row2 = $(".weatherCard")[i]
+        var weatherIcon = $(row2).find(".weather-icon")
+        weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+        // update temp
+        var row3 = $(".weatherCard")[i]
+        var weatherTemp = $(row3).find(".temperature")
+        weatherTemp.text(obj.main.temp + " " + String.fromCharCode(176) + "F")
+        // update humidity 
+        var row4 = $(".weatherCard")[i]
+        var weatherHumi = $(row4).find(".humidity")
+        weatherHumi.text(obj.main.humidity + "%")
+        // update windspeed 
+        var row5 = $(".weatherCard")[i]
+        var windSpeed = $(row5).find(".wind-speed")
+        windSpeed.text(obj.wind.speed)
 
-        response.list.forEach(function (obj, i) {
-            if (i % 8 === 0) {
-                fiveDayForecast.push(response.list[i + 5])
-            }
-        })
-
-        fiveDayForecast.forEach(function (obj, i) {
-            var row = $(".weatherCard")[i]
-            // update date to corresponding weatherCard
-            var weatherDate = $(row).find(".date")
-            weatherDate.text(obj.dt_txt.split(" ")[0])
-
-            // update icon, temp, humidity, and windspeed to corresponding weatherCard
-            var row2 = $(".weatherCard")[i]
-            var weatherIcon = $(row2).find(".weather-icon")
-            weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
-            // update temp
-            var row3 = $(".weatherCard")[i]
-            var weatherTemp = $(row3).find(".temperature")
-            weatherTemp.text(obj.main.temp + " " + String.fromCharCode(176) + "F")
-            // update humidity 
-            var row4 = $(".weatherCard")[i]
-            var weatherHumi = $(row4).find(".humidity")
-            weatherHumi.text(obj.main.humidity + "%")
-            // update windspeed 
-            var row5 = $(".weatherCard")[i]
-            var windSpeed = $(row5).find(".wind-speed")
-            windSpeed.text(obj.wind.speed)
-
-            // Connecting weather API data to keywords generated in terms of weather conditions (Seohui)
-            imagesArray[i].date = obj.dt_txt.split(" ")[0];
-            weatherArray[i].temp = obj.main.temp;
-            weatherArray[i].condition = obj.weather[0].id;
-        });
-
-        // It would run a function that will update items in imagesArray (Seohui)
-        suggestItems();
-
-        // Once the city weather button is clicked, it will display get-clothing-options button (Seohui)
-        $("#getClothingBtn").css("display", "block");
-
-        console.log(weatherArray);
+      });
     });
 });
-
-// weather from local storage + second api
-$(document).ready(function () {
-
-    if (citweather !== null) {
-
-        var APIKey = "298a4f435bb40084f3affdac067f0650";
-
-        var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
-
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            // console.log(response);
-
-            var fiveDayForecast = []
-
-            $('#cityName').append(citweather)
-
-            response.list.forEach(function (obj, i) {
-                if (i % 8 === 0) {
-                    fiveDayForecast.push(response.list[i + 5])
-                }
-            })
-
-            fiveDayForecast.forEach(function (obj, i) {
-                var row = $(".weatherCard")[i]
-                // update date to corresponding weatherCard
-                var weatherDate = $(row).find(".date")
-                weatherDate.text(obj.dt_txt.split(" ")[0])
-                console.log(obj)
-                // update icon, temp, humidity, and windspeed to corresponding weatherCard
-                var row2 = $(".weatherCard")[i]
-                var weatherIcon = $(row2).find(".weather-icon")
-                weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
-                // update temp
-                var row3 = $(".weatherCard")[i]
-                var weatherTemp = $(row3).find(".temperature")
-                weatherTemp.text(obj.main.temp + " " + String.fromCharCode(176) + "F")
-                // update humidity 
-                var row4 = $(".weatherCard")[i]
-                var weatherHumi = $(row4).find(".humidity")
-                weatherHumi.text(obj.main.humidity + "%")
-                // update windspeed 
-                var row5 = $(".weatherCard")[i]
-                var windSpeed = $(row5).find(".wind-speed")
-                windSpeed.text(obj.wind.speed)
-            });
-
-        });
-    }
-
-})
 
 var imagesArray = [
     {
@@ -280,70 +247,57 @@ var imagesArray = [
 ];
 
 
-function suggestItems() {
-    var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
+var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
 
-    var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
+var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
 
-    var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
-    var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
-    var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wide-Leg Pants", "Beanie", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
-    var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Turtleneck", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
+var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Light-Colored Clothing", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wool Clothing", "Travel Pants", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
+var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Wool Clothing", "Thermal Shirt", "Super Warm Jacket", "Ultra-Light Jackets", "Warm Hat", "Thermals", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
 
-    var sunnyHot = ["Sunscreen", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
-    var sunnyMild = ["Sunscreen", "Sunglasses", "Water Bottle", "Light-Colored Clothing", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
+var sunnyHot = ["Sunscreen", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
+var sunnyMild = ["Sunscreen", "Sunglasses", "Water Bottle", "Light-Colored Clothing", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
 
-    imagesArray.forEach(function (element, i) {
-        // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
-        if (weatherArray[i].condition >= 200 && weatherArray[i].condition <= 531) {
-            var random = Math.floor(Math.random() * rain.length);
-            element.item1 = rain[random];
-            rain.splice(random, 1);
+var weatherArray = [{ date: "GH rain", temp: 82, condition: 210 }, { date: "GM rain", temp: 72, condition: 312 },
+{ date: "GCold snow", temp: 20, condition: 600 }, { date: "GChilly clouds", temp: 62, condition: 751 }, { date: "SH clear", temp: 92, condition: 800 }];
 
-            if (weatherArray[i].temp >= 78) {
-                var random1 = Math.floor(Math.random() * generalHot.length);
-                element.item2 = generalHot[random1];
-                generalHot.splice(random1, 1);
+var index = 0;
+imagesArray.forEach(function (element) {
+    // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
+    if (weatherArray[index].condition >= 200 && weatherArray[index].condition <= 531) {
+        var random = Math.floor(Math.random() * rain.length);
+        element.item1 = rain[random];
+        rain.splice(random, 1);
 
-                var random2 = Math.floor(Math.random() * generalHot.length);
-                element.item3 = generalHot[random2];
-                generalHot.splice(random2, 1);
-            }
-            if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
-                var random1 = Math.floor(Math.random() * generalMild.length);
-                element.item2 = generalMild[random1];
-                generalMild.splice(random1, 1);
+        if (weatherArray[index].temp >= 78) {
+            var random1 = Math.floor(Math.random() * generalHot.length);
+            element.item2 = generalHot[random1];
+            generalHot.splice(random1, 1);
 
-                var random2 = Math.floor(Math.random() * generalMild.length);
-                element.item3 = generalMild[random2];
-                generalMild.splice(random2, 1);
-            }
-            if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
-                var random1 = Math.floor(Math.random() * generalChilly.length);
-                element.item2 = generalChilly[random1];
-                generalChilly.splice(random1, 1);
-
-                var random2 = Math.floor(Math.random() * generalChilly.length);
-                element.item3 = generalChilly[random2];
-                generalChilly.splice(random2, 1);
-            }
-            if (weatherArray[i].temp < 50) {
-                var random1 = Math.floor(Math.random() * generalCold.length);
-                element.item2 = generalCold[random1];
-                generalCold.splice(random1, 1);
-
-                var random2 = Math.floor(Math.random() * generalCold.length);
-                element.item3 = generalCold[random2];
-                generalCold.splice(random2, 1);
-            }
+            var random2 = Math.floor(Math.random() * generalHot.length);
+            element.item3 = generalHot[random2];
+            generalHot.splice(random2, 1);
         }
+        if (weatherArray[index].temp < 78 && weatherArray[index].temp >= 70) {
+            var random1 = Math.floor(Math.random() * generalMild.length);
+            element.item2 = generalMild[random1];
+            generalMild.splice(random1, 1);
 
-        // Group 6xx: Snow
-        else if (weatherArray[i].condition >= 600 && weatherArray[i].condition <= 622) {
-            var random = Math.floor(Math.random() * snow.length);
-            element.item1 = snow[random];
-            snow.splice(random, 1);
+            var random2 = Math.floor(Math.random() * generalMild.length);
+            element.item3 = generalMild[random2];
+            generalMild.splice(random2, 1);
+        }
+        if (weatherArray[index].temp < 70 && weatherArray[index].temp >= 50) {
+            var random1 = Math.floor(Math.random() * generalChilly.length);
+            element.item2 = generalChilly[random1];
+            generalChilly.splice(random1, 1);
 
+            var random2 = Math.floor(Math.random() * generalChilly.length);
+            element.item3 = generalChilly[random2];
+            generalChilly.splice(random2, 1);
+        }
+        if (weatherArray[index].temp < 50) {
             var random1 = Math.floor(Math.random() * generalCold.length);
             element.item2 = generalCold[random1];
             generalCold.splice(random1, 1);
@@ -352,126 +306,144 @@ function suggestItems() {
             element.item3 = generalCold[random2];
             generalCold.splice(random2, 1);
         }
+    }
 
-        // Group 7xx: Atmosphere, Group 8xx: Clouds
-        else if (weatherArray[i].condition >= 700 && weatherArray[i].condition <= 781
-            || weatherArray[i].condition >= 801 && weatherArray[i].condition <= 804) {
+    // Group 6xx: Snow
+    else if (weatherArray[index].condition >= 600 && weatherArray[index].condition <= 622) {
+        var random = Math.floor(Math.random() * snow.length);
+        element.item1 = snow[random];
+        snow.splice(random, 1);
 
-            if (weatherArray[i].temp >= 78) {
-                var random1 = Math.floor(Math.random() * generalHot.length);
-                element.item1 = generalHot[random1];
-                generalHot.splice(random1, 1);
+        var random1 = Math.floor(Math.random() * generalCold.length);
+        element.item2 = generalCold[random1];
+        generalCold.splice(random1, 1);
 
-                var random2 = Math.floor(Math.random() * generalHot.length);
-                element.item2 = generalHot[random2];
-                generalHot.splice(random2, 1);
+        var random2 = Math.floor(Math.random() * generalCold.length);
+        element.item3 = generalCold[random2];
+        generalCold.splice(random2, 1);
+    }
 
-                var random3 = Math.floor(Math.random() * generalHot.length);
-                element.item3 = generalHot[random3];
-                generalHot.splice(random3, 1);
-            }
-            if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
-                var random1 = Math.floor(Math.random() * generalMild.length);
-                element.item1 = generalMild[random1];
-                generalMild.splice(random1, 1);
+    // Group 7xx: Atmosphere, Group 8xx: Clouds
+    else if (weatherArray[index].condition >= 700 && weatherArray[index].condition <= 781
+        || weatherArray[index].condition >= 801 && weatherArray[index].condition <= 804) {
 
-                var random2 = Math.floor(Math.random() * generalMild.length);
-                element.item2 = generalMild[random2];
-                generalMild.splice(random2, 1);
+        if (weatherArray[index].temp >= 78) {
+            var random1 = Math.floor(Math.random() * generalHot.length);
+            element.item1 = generalHot[random1];
+            generalHot.splice(random1, 1);
 
-                var random3 = Math.floor(Math.random() * generalMild.length);
-                element.item3 = generalMild[random3];
-                generalMild.splice(random3, 1);
-            }
-            if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
-                var random1 = Math.floor(Math.random() * generalChilly.length);
-                element.item1 = generalChilly[random1];
-                generalChilly.splice(random1, 1);
+            var random2 = Math.floor(Math.random() * generalHot.length);
+            element.item2 = generalHot[random2];
+            generalHot.splice(random2, 1);
 
-                var random2 = Math.floor(Math.random() * generalChilly.length);
-                element.item2 = generalChilly[random2];
-                generalChilly.splice(random2, 1);
-
-                var random3 = Math.floor(Math.random() * generalChilly.length);
-                element.item3 = generalChilly[random3];
-                generalChilly.splice(random3, 1);
-            }
-            if (weatherArray[i].temp < 50) {
-                var random1 = Math.floor(Math.random() * generalCold.length);
-                element.item1 = generalCold[random1];
-                generalCold.splice(random1, 1);
-
-                var random2 = Math.floor(Math.random() * generalCold.length);
-                element.item2 = generalCold[random2];
-                generalCold.splice(random2, 1);
-
-                var random3 = Math.floor(Math.random() * generalCold.length);
-                element.item3 = generalCold[random3];
-                generalCold.splice(random3, 1);
-            }
+            var random3 = Math.floor(Math.random() * generalHot.length);
+            element.item3 = generalHot[random3];
+            generalHot.splice(random3, 1);
         }
+        if (weatherArray[index].temp < 78 && weatherArray[index].temp >= 70) {
+            var random1 = Math.floor(Math.random() * generalMild.length);
+            element.item1 = generalMild[random1];
+            generalMild.splice(random1, 1);
 
-        // Group 800: Clear
-        else {
-            if (weatherArray[i].temp >= 78) {
-                var random1 = Math.floor(Math.random() * sunnyHot.length);
-                element.item1 = sunnyHot[random1];
-                sunnyHot.splice(random1, 1);
+            var random2 = Math.floor(Math.random() * generalMild.length);
+            element.item2 = generalMild[random2];
+            generalMild.splice(random2, 1);
 
-                var random2 = Math.floor(Math.random() * sunnyHot.length);
-                element.item2 = sunnyHot[random2];
-                sunnyHot.splice(random2, 1);
+            var random3 = Math.floor(Math.random() * generalMild.length);
+            element.item3 = generalMild[random3];
+            generalMild.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 70 && weatherArray[index].temp >= 50) {
+            var random1 = Math.floor(Math.random() * generalChilly.length);
+            element.item1 = generalChilly[random1];
+            generalChilly.splice(random1, 1);
 
-                var random3 = Math.floor(Math.random() * generalHot.length);
-                element.item3 = generalHot[random3];
-                generalHot.splice(random3, 1);
-            }
-            if (weatherArray[i].temp < 78 && weatherArray[i].temp >= 70) {
-                var random1 = Math.floor(Math.random() * sunnyMild.length);
-                element.item1 = sunnyMild[random1];
-                sunnyMild.splice(random1, 1);
+            var random2 = Math.floor(Math.random() * generalChilly.length);
+            element.item2 = generalChilly[random2];
+            generalChilly.splice(random2, 1);
 
-                var random2 = Math.floor(Math.random() * sunnyMild.length);
-                element.item2 = sunnyMild[random2];
-                sunnyMild.splice(random2, 1);
+            var random3 = Math.floor(Math.random() * generalChilly.length);
+            element.item3 = generalChilly[random3];
+            generalChilly.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 50) {
+            var random1 = Math.floor(Math.random() * generalCold.length);
+            element.item1 = generalCold[random1];
+            generalCold.splice(random1, 1);
 
-                var random3 = Math.floor(Math.random() * generalMild.length);
-                element.item3 = generalMild[random3];
-                generalMild.splice(random3, 1);
+            var random2 = Math.floor(Math.random() * generalCold.length);
+            element.item2 = generalCold[random2];
+            generalCold.splice(random2, 1);
 
-            }
-            if (weatherArray[i].temp < 70 && weatherArray[i].temp >= 50) {
-                var random1 = Math.floor(Math.random() * generalChilly.length);
-                element.item1 = generalChilly[random1];
-                generalChilly.splice(random1, 1);
+            var random3 = Math.floor(Math.random() * generalCold.length);
+            element.item3 = generalCold[random3];
+            generalCold.splice(random3, 1);
+        }
+    }
 
-                var random2 = Math.floor(Math.random() * generalChilly.length);
-                element.item2 = generalChilly[random2];
-                generalChilly.splice(random2, 1);
+    // Group 800: Clear
+    else {
+        if (weatherArray[index].temp >= 78) {
+            var random1 = Math.floor(Math.random() * sunnyHot.length);
+            element.item1 = sunnyHot[random1];
+            sunnyHot.splice(random1, 1);
 
-                var random3 = Math.floor(Math.random() * generalChilly.length);
-                element.item3 = generalChilly[random3];
-                generalChilly.splice(random3, 1);
-            }
-            if (weatherArray[i].temp < 50) {
-                var random1 = Math.floor(Math.random() * generalCold.length);
-                element.item1 = generalCold[random1];
-                generalCold.splice(random1, 1);
+            var random2 = Math.floor(Math.random() * sunnyHot.length);
+            element.item2 = sunnyHot[random2];
+            sunnyHot.splice(random2, 1);
 
-                var random2 = Math.floor(Math.random() * generalCold.length);
-                element.item2 = generalCold[random2];
-                generalCold.splice(random2, 1);
+            var random3 = Math.floor(Math.random() * generalHot.length);
+            element.item3 = generalHot[random3];
+            generalHot.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 78 && weatherArray[index].temp >= 70) {
+            var random1 = Math.floor(Math.random() * sunnyMild.length);
+            element.item1 = sunnyMild[random1];
+            sunnyMild.splice(random1, 1);
 
-                var random3 = Math.floor(Math.random() * generalCold.length);
-                element.item3 = generalCold[random3];
-                generalCold.splice(random3, 1);
-            }
+            var random2 = Math.floor(Math.random() * sunnyMild.length);
+            element.item2 = sunnyMild[random2];
+            sunnyMild.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalMild.length);
+            element.item3 = generalMild[random3];
+            generalMild.splice(random3, 1);
 
         }
-    });
+        if (weatherArray[index].temp < 70 && weatherArray[index].temp >= 50) {
+            var random1 = Math.floor(Math.random() * generalChilly.length);
+            element.item1 = generalChilly[random1];
+            generalChilly.splice(random1, 1);
 
-    console.log(imagesArray);
-}
+            var random2 = Math.floor(Math.random() * generalChilly.length);
+            element.item2 = generalChilly[random2];
+            generalChilly.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalChilly.length);
+            element.item3 = generalChilly[random3];
+            generalChilly.splice(random3, 1);
+        }
+        if (weatherArray[index].temp < 50) {
+            var random1 = Math.floor(Math.random() * generalCold.length);
+            element.item1 = generalCold[random1];
+            generalCold.splice(random1, 1);
+
+            var random2 = Math.floor(Math.random() * generalCold.length);
+            element.item2 = generalCold[random2];
+            generalCold.splice(random2, 1);
+
+            var random3 = Math.floor(Math.random() * generalCold.length);
+            element.item3 = generalCold[random3];
+            generalCold.splice(random3, 1);
+        }
+
+    }
+    index++;
+});
+
+// console.log(weatherArray)
+// console.log(imagesArray)
+
 
 // our api keys since we're limited to 40 searches a day
 var sKey = "AIzaSyAChTnaHTlKPUC9c4Wl5B-asTQYREMD06o";
@@ -489,21 +461,13 @@ var cxJ = "006909077347969630804:48vbvnkdqu9";
 // for each function that will go object by object in out imagesArray
 $('#getClothingBtn').on('click', function () {
 
-    $('#suggestedItems').empty();
-
     var suggestedItems = /*html*/`
     <h3 class="suggestion-header w-100 mb-4 text-center">Suggested Items</h3>
-        <div id="loader"></div>
         <div class="wrapper">
 
         </div>
     `
-
-    var loadIcon = /*html*/`
-    <div class="icon"></div>
-    `
     $('#suggestedItems').append(suggestedItems)
-    $('#loader').append(loadIcon)
 
     // empties out old search results
     $('.wrapper').empty();
@@ -512,9 +476,9 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            sKey + "&cx=" + cxS + "&searchType=image&q=" + element.item1 + " 500x500";
+            jKey + "&cx=" + cxJ + "&searchType=image&q="+element.item1+" 500x500";
 
-
+            
 
         // first ajax call, this goes over the element.item1 for each object
         $.ajax({ url: query, method: "GET" }).then(function (response) {
@@ -551,7 +515,7 @@ $('#getClothingBtn').on('click', function () {
         // });
 
         // ---------------------------------------------------------------------------------------------------
-
+        
     })
 
     // we want to set a timeout function to give the ajax calls time to complete and write to array
@@ -597,13 +561,10 @@ $('#getClothingBtn').on('click', function () {
             $('.wrapper').append(newImage)
         })
 
-        // remove loader after images load 
-        $('#loader').empty();
-
 
         function storeItems() {
             // Local storage
-            $(".clothing-card div a").on("click", function (event) {
+            $(".clothing-card div a").on("click", function(event) {
                 // Prevent link click from redirecting to top of page
                 event.preventDefault();
                 var imgURL = $(this).parents(".clothing-card").children("img").attr("src");
@@ -615,8 +576,8 @@ $('#getClothingBtn').on('click', function () {
 
                 localStorage.setItem("savedItems", JSON.stringify(savedItems));
             });
-        }
-        storeItems();
+        } 
+        storeItems();   
 
     }, 2000)
 
