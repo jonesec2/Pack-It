@@ -50,13 +50,19 @@ h1, h2, h3, h4, h5, p, a {
     color: $dark-blue;
 }
 
+h1 {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
 h2 {
-    font-size: 1.6em;
+    font-size: 1.4em;
     font-weight: bold;
 }
 
 h3 {
-    font-size: 1.3em;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 
@@ -74,6 +80,10 @@ h3 {
             color: $white;
         }
     }
+}
+
+body {
+    background-color: $body-background-color;
 }
   
 footer {
@@ -113,19 +123,24 @@ footer {
         margin-right: auto;
         margin-left: auto;
     }
-    // div {
-    //     padding: 1em;
-    //     background-color: $dark-blue;
-    //     align-items: center;
-    //     p {
-    //         color: $white;
-    //     }
-    //     a {
-    //         background-color: $white;
-    //         border-radius: 50%;
-    //         padding: .5em 1em;
-    //     }
-    // }
+    div {
+        padding: 1em;
+        background-color: $dark-blue;
+        align-items: center;
+        p {
+            color: $white;
+        }
+        a {
+            background-color: $white;
+            border-radius: 50%;
+            padding: .5em 1em;
+            transition: .6s all;
+            &:hover, &:focus {
+                opacity: .7;
+                text-decoration: none; 
+            }
+        }
+    }
 }
 
 
@@ -133,7 +148,7 @@ footer {
 body {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
 }
 .main {
     flex: 1 0 auto;
@@ -158,7 +173,7 @@ body {
             }
         }
         .row {
-            width: 90%;
+            width: 70%;
             max-width: 400px;
             margin: auto;
             .input-group button {
@@ -168,8 +183,8 @@ body {
             }
         }
     }
-    #weatherContainer .wrapper {
-        width: 90%;
+    #weatherContainer {
+        width: 96%;
         margin: auto;
     }
     .date-container  {
