@@ -167,6 +167,9 @@ $(document).ready(function () {
     if (citweather !== null) {
 
         $("#getClothingBtn").css("display", "block");
+        $("#weatherContainer").css("display", "block");
+        
+
 
         var APIKey = "298a4f435bb40084f3affdac067f0650";
 
