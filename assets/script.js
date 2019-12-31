@@ -643,7 +643,7 @@ $('#getClothingBtn').on('click', function () {
         }
         storeItems();
 
-    }, 2000)
+    }, 2500)
 
 });
 
