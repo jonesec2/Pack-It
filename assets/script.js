@@ -25,7 +25,7 @@ $(document).ready(function () {
 
 // Display selected clothing items to suitcase page
 function displayToSuitcase() {
-    // Clear page of cards before updated cards are diplayed (to avoid duplicates)
+    // Clear page of cards before updated cards are displayed (to avoid duplicates)
     $("#suitcasePage .wrapper").empty();
     $.each(savedItems, function (key, value) {
         var newSuitcaseItem = /*html*/`
@@ -93,6 +93,9 @@ $("#searchBtn").on("click", function (e) {
     // grabs city name from text input area
     var location = $(".form-control").val();
 
+    // sets city-name = to user type
+    $('#cityName').text(location)
+
     console.log(location);
     //setting city into local storage
     localStorage.setItem("cit-name", (location));
@@ -100,15 +103,21 @@ $("#searchBtn").on("click", function (e) {
 
     console.log(location);
 
-    var APIKey = "298a4f435bb40084f3affdac067f0650";
+    // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
     var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
 
     $.ajax({
         url: queryURL,
-        method: "GET"
-    }).then(function (response) {
+        method: "GET",
+        success: weatherCall,
+        error: weatherError
+    });
+
+    function weatherCall(response) {
         // console.log(response);
+        //displays the weather container on search
+        $("#weatherContainer").css("display", "block");
 
         var fiveDayForecast = []
 
@@ -124,7 +133,7 @@ $("#searchBtn").on("click", function (e) {
             var weatherDate = $(row).find(".date")
             weatherDate.text(obj.dt_txt.split(" ")[0])
 
-            // update icon, temp, humidity, and windspeed to corresponding weatherCard
+            // update icon, temp, humidity, and wind speed to corresponding weatherCard
             var row2 = $(".weatherCard")[i]
             var weatherIcon = $(row2).find(".weather-icon")
             weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
@@ -136,25 +145,46 @@ $("#searchBtn").on("click", function (e) {
             var row4 = $(".weatherCard")[i]
             var weatherHumi = $(row4).find(".humidity")
             weatherHumi.text(obj.main.humidity + "%")
-            // update windspeed 
+            // update wind speed 
             var row5 = $(".weatherCard")[i]
             var windSpeed = $(row5).find(".wind-speed")
             windSpeed.text(obj.wind.speed)
 
-            // Connecting weather API data to keywords generated in terms of weather conditions (Seohui)
+            // Connecting weather API data to keywords generated in terms of weather conditions
             imagesArray[i].date = obj.dt_txt.split(" ")[0];
             weatherArray[i].temp = obj.main.temp;
             weatherArray[i].condition = obj.weather[0].id;
         });
 
-        // It would run a function that will update items in imagesArray (Seohui)
+        // It would run a function that will update items in imagesArray
         suggestItems();
 
-        // Once the city weather button is clicked, it will display get-clothing-options button (Seohui)
+        // Once the city weather button is clicked, it will display get-clothing-options button
         $("#getClothingBtn").css("display", "block");
 
         console.log(weatherArray);
-    });
+    };
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "showDuration": "2000",
+        "hideDuration": "2000",
+        "timeOut": "4000",
+        "extendedTimeOut": "2000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    function weatherError() {
+        toastr.error("We couldn't find your city, check the spelling or whether this place actually exists.", 'Error!')
+    }
 });
 
 // weather from local storage + second api
@@ -168,9 +198,15 @@ $(document).ready(function () {
 
         $.ajax({
             url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            // console.log(response);
+            method: "GET",
+            success: weatherCall,
+            error: weatherError
+        });
+
+        function weatherCall(response) {
+
+            $("#getClothingBtn").css("display", "block");
+            $("#weatherContainer").css("display", "block");
 
             var fiveDayForecast = []
 
@@ -188,7 +224,7 @@ $(document).ready(function () {
                 var weatherDate = $(row).find(".date")
                 weatherDate.text(obj.dt_txt.split(" ")[0])
                 console.log(obj)
-                // update icon, temp, humidity, and windspeed to corresponding weatherCard
+                // update icon, temp, humidity, and wind speed to corresponding weatherCard
                 var row2 = $(".weatherCard")[i]
                 var weatherIcon = $(row2).find(".weather-icon")
                 weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
@@ -206,9 +242,31 @@ $(document).ready(function () {
                 windSpeed.text(obj.wind.speed)
             });
 
-        });
+            // It would run a function that will update items in imagesArray
+            suggestItems();
+        };
     }
 
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "showDuration": "2000",
+        "hideDuration": "2000",
+        "timeOut": "4000",
+        "extendedTimeOut": "2000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    function weatherError() {
+        toastr.error("We couldn't find your last saved search, check the spelling or whether this place actually exists.", 'Uh oh...')
+    }
 })
 
 var imagesArray = [
@@ -278,7 +336,7 @@ var imagesArray = [
         imageName3: null
     }
 ];
-
+console.log(imagesArray)
 
 function suggestItems() {
     var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
@@ -468,6 +526,7 @@ function suggestItems() {
             }
 
         }
+        console.log(imagesArray)
     });
 
     console.log(imagesArray);
@@ -486,7 +545,7 @@ var cxM = "009075084732258994516:lralsp7otlc";
 var cxJ = "006909077347969630804:48vbvnkdqu9";
 
 
-// for each function that will go object by object in out imagesArray
+// for each function that will go object by object in our imagesArray
 $('#getClothingBtn').on('click', function () {
 
     $('#suggestedItems').empty();
@@ -599,11 +658,31 @@ $('#getClothingBtn').on('click', function () {
 
         // remove loader after images load 
         $('#loader').empty();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
 
 
         function storeItems() {
             // Local storage
             $(".clothing-card div a").on("click", function (event) {
+
+                toastr.success('Clothing added to your suitcase.', 'Success!')
+
+
                 // Prevent link click from redirecting to top of page
                 event.preventDefault();
                 var imgURL = $(this).parents(".clothing-card").children("img").attr("src");
@@ -618,7 +697,7 @@ $('#getClothingBtn').on('click', function () {
         }
         storeItems();
 
-    }, 2000)
+    }, 2500)
 
 });
 

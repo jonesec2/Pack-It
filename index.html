@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="assets/bulma_css/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css"
+        integrity="sha256-He3QEBKoL/nMXlVsoM7S2C2kjFQqS5L+mgA+F8LpG+U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"
+        integrity="sha256-R91pD48xW+oHbpJYGn5xR0Q7tMhH4xOrWn1QqMRINtA=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
+        integrity="sha256-yNbKY1y6h2rbVcQtf0b8lq4a+xpktyFc3pSYoGAY1qQ=" crossorigin="anonymous"></script>
 </head>
 
 <body id="homepage">
@@ -58,7 +64,7 @@
             </div>
         </div>
 
-        <div id="weatherContainer" class="container mb-5">
+        <div style="display: none" id="weatherContainer" class="container mb-5">
             <div class="row">
                 <div class="col-sm-12">
                     <h2 class="forecast-header w-100 mb-4 text-center">5-Day Forecast for <span id="cityName"></span>
