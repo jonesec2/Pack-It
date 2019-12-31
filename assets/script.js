@@ -147,16 +147,16 @@ $("#searchBtn").on("click", function (e) {
             var windSpeed = $(row5).find(".wind-speed")
             windSpeed.text(obj.wind.speed)
 
-            // Connecting weather API data to keywords generated in terms of weather conditions (Seohui)
+            // Connecting weather API data to keywords generated in terms of weather conditions
             imagesArray[i].date = obj.dt_txt.split(" ")[0];
             weatherArray[i].temp = obj.main.temp;
             weatherArray[i].condition = obj.weather[0].id;
         });
 
-        // It would run a function that will update items in imagesArray (Seohui)
+        // It would run a function that will update items in imagesArray
         suggestItems();
 
-        // Once the city weather button is clicked, it will display get-clothing-options button (Seohui)
+        // Once the city weather button is clicked, it will display get-clothing-options button
         $("#getClothingBtn").css("display", "block");
 
         console.log(weatherArray);
@@ -217,9 +217,8 @@ $(document).ready(function () {
                 windSpeed.text(obj.wind.speed)
             });
 
-            // It would run a function that will update items in imagesArray (Seohui)
+            // It would run a function that will update items in imagesArray
             suggestItems();
-
         });
     }
 
