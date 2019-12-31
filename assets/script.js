@@ -92,7 +92,7 @@ $("#searchBtn").on("click", function (e) {
 
 
     // grabs city name from text input area
-    var location = $(".form-control").val(); 
+    var location = $(".form-control").val();
 
     // sets city-name = to user type
     $('#cityName').text(location)
@@ -489,6 +489,23 @@ var cxC = '007241596936031581208:qzqpad7wyv5';
 var cxM = "009075084732258994516:lralsp7otlc";
 var cxJ = "006909077347969630804:48vbvnkdqu9";
 
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "showDuration": "1000",
+    "hideDuration": "1000",
+    "timeOut": "2000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+
 
 // for each function that will go object by object in out imagesArray
 $('#getClothingBtn').on('click', function () {
@@ -608,6 +625,10 @@ $('#getClothingBtn').on('click', function () {
         function storeItems() {
             // Local storage
             $(".clothing-card div a").on("click", function (event) {
+
+                toastr.success('Clothing added to your suitcase.', 'Success!')
+
+                
                 // Prevent link click from redirecting to top of page
                 event.preventDefault();
                 var imgURL = $(this).parents(".clothing-card").children("img").attr("src");
