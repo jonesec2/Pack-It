@@ -29,11 +29,11 @@ function displayToSuitcase() {
     $("#suitcasePage .wrapper").empty();
     $.each(savedItems, function (key, value) {
         var newSuitcaseItem = /*html*/`
-        <div class="clothing-card card p-4">
+        <div class="clothing-card card">
             <img src="${value[1]}">
                 <div class="d-flex justify-content-between pt-2">
                     <p class="clothing-name">${value[0]}</p>
-                <a href="#">-</a>
+                <a href="#">x</a>
                 </div>
         </div>`
 
@@ -496,7 +496,7 @@ $('#getClothingBtn').on('click', function () {
     $('#suggestedItems').empty();
 
     var suggestedItems = /*html*/`
-    <h3 class="suggestion-header w-100 mb-4 text-center">Suggested Items</h3>
+    <h2 class="suggestion-header w-100 mb-4 text-center">Suggested Items</h2>
         <div id="loader"></div>
         <div class="wrapper">
 
@@ -516,7 +516,7 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            sKey + "&cx=" + cxS + "&searchType=image&q=" + element.item1 + " 500x500";
+            cKey + "&cx=" + cxC + "&searchType=image&q=" + element.item1 + " 500x500";
 
 
 
@@ -574,21 +574,21 @@ $('#getClothingBtn').on('click', function () {
             // Seohui: I enabled only the first image of each day to show up in HTML -----------------------------------------------
             var newImage = /*html*/`
             
-            <div class="clothing-card card p-4">
+            <div class="clothing-card card">
                 <img id="${element.item1 + i}" src="${element.imageResult1}" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.item1}</p>
                      <a href="#" id="${element.item1 + element.buttonIdOne + i}">+</a>
                     </div>
             </div>
-            <div class="clothing-card card p-4">
+            <div class="clothing-card card">
                 <img id="${element.item2 + i}" src="https://via.placeholder.com/150" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.item2}</p>
                         <a href="#" id="${element.item2 + element.buttonIdOne + i}">+</a>
                     </div>
             </div>
-            <div class="clothing-card card p-4">
+            <div class="clothing-card card">
                     <img id="${element.item3 + i}" src="https://via.placeholder.com/150">
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.item3}</p>

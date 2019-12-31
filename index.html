@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/7b4d2fea99.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/style.css">
+    <!-- <link rel="stylesheet" href="assets/style.css"> -->
+    <link rel="stylesheet" href="assets/bulma_css/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body id="homepage">
     <div class="navbar-container">
-        <nav class="navbar navbar-expand-md navbar-light">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">
                 <h4>Pack-It</h4>
             </a>
@@ -37,12 +38,12 @@
         </nav>
     </div>
     <main class="main">
-        <div id="searchContainer" class="container">
+        <div id="searchContainer">
             <div class="row">
-                <div class="col-sm-12 p-0 my-5">
+                <div class="col-sm-12 p-0 mb-5">
                     <div class="card main-card p-4">
-                        <div class="row no-gutters">
-                            <h2 class="card-title main-title mb-4 pb-4 w-100 text-center">Where are you going?</h2>
+                        <div class="row no-gutters search-text">
+                            <h1 class="card-title main-title mb-4 pb-4 w-100 text-center">Where are you going?</h1>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="cityInput"
                                     placeholder="ex. Richmond, VA 23226" aria-describedby="button-addon2">
@@ -60,13 +61,13 @@
         <div id="weatherContainer" class="container mb-5">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="forecast-header w-100 mb-4 text-center">5-Day Forecast for <span id="cityName"></span>
-                    </h3>
+                    <h2 class="forecast-header w-100 mb-4 text-center">5-Day Forecast for <span id="cityName"></span>
+                    </h2>
                 </div>
                 <div class="col-sm-12 p-0 mb-2">
                     <div id="weatherCard1" class="card weatherCard">
                         <div class="row no-gutters">
-                            <div class="date-container p-4 bg-secondary text-white">
+                            <div class="date-container p-4 text-white">
                                 <div id="day1Date" class="date">[Date]</div>
                             </div>
                             <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
@@ -81,7 +82,7 @@
                 <div class="col-sm-12 p-0 mb-2">
                     <div id="weatherCard2" class="card weatherCard">
                         <div class="row no-gutters">
-                            <div class="date-container p-4 bg-secondary text-white">
+                            <div class="date-container p-4 text-white">
                                 <div id="day2Date" class="date">[Date]</div>
                             </div>
                             <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
@@ -96,7 +97,7 @@
                 <div class="col-sm-12 p-0 mb-2">
                     <div id="weatherCard3" class="card weatherCard">
                         <div class="row no-gutters">
-                            <div class="date-container p-4 bg-secondary text-white">
+                            <div class="date-container p-4 text-white">
                                 <div id="day3Date" class="date">[Date]</div>
                             </div>
                             <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
@@ -111,7 +112,7 @@
                 <div class="col-sm-12 p-0 mb-2">
                     <div id="weatherCard4" class="card weatherCard">
                         <div class="row no-gutters">
-                            <div class="date-container p-4 bg-secondary text-white">
+                            <div class="date-container p-4 text-white">
                                 <div id="day4Date" class="date">[Date]</div>
                             </div>
                             <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
@@ -126,7 +127,7 @@
                 <div class="col-sm-12 p-0 mb-4">
                     <div id="weatherCard5" class="card weatherCard">
                         <div class="row no-gutters">
-                            <div class="date-container p-4 bg-secondary text-white">
+                            <div class="date-container p-4 text-white">
                                 <div id="day5Date" class="date">[Date]</div>
                             </div>
                             <div class="weather-data-container p-4 d-flex justify-content-between flex-fill">
