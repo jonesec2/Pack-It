@@ -90,9 +90,6 @@ $("#searchBtn").on("click", function (e) {
     // Empties suggested items generated from previous search (Seohui)
     $('#suggestedItems').empty();
 
-    //displays the weather container on search
-    $("#weatherContainer").css("display", "block");
-
     // grabs city name from text input area
     var location = $(".form-control").val();
 
@@ -106,15 +103,21 @@ $("#searchBtn").on("click", function (e) {
 
     console.log(location);
 
-    var APIKey = "298a4f435bb40084f3affdac067f0650";
+    // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
     var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
 
     $.ajax({
         url: queryURL,
-        method: "GET"
-    }).then(function (response) {
+        method: "GET",
+        success: weatherCall,
+        error: weatherError
+    });
+
+    function weatherCall(response) {
         // console.log(response);
+        //displays the weather container on search
+        $("#weatherContainer").css("display", "block");
 
         var fiveDayForecast = []
 
@@ -130,7 +133,7 @@ $("#searchBtn").on("click", function (e) {
             var weatherDate = $(row).find(".date")
             weatherDate.text(obj.dt_txt.split(" ")[0])
 
-            // update icon, temp, humidity, and windspeed to corresponding weatherCard
+            // update icon, temp, humidity, and wind speed to corresponding weatherCard
             var row2 = $(".weatherCard")[i]
             var weatherIcon = $(row2).find(".weather-icon")
             weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
@@ -142,7 +145,7 @@ $("#searchBtn").on("click", function (e) {
             var row4 = $(".weatherCard")[i]
             var weatherHumi = $(row4).find(".humidity")
             weatherHumi.text(obj.main.humidity + "%")
-            // update windspeed 
+            // update wind speed 
             var row5 = $(".weatherCard")[i]
             var windSpeed = $(row5).find(".wind-speed")
             windSpeed.text(obj.wind.speed)
@@ -160,7 +163,28 @@ $("#searchBtn").on("click", function (e) {
         $("#getClothingBtn").css("display", "block");
 
         console.log(weatherArray);
-    });
+    };
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "showDuration": "2000",
+        "hideDuration": "2000",
+        "timeOut": "4000",
+        "extendedTimeOut": "2000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    function weatherError() {
+        toastr.error("We couldn't find your city, check the spelling or whether this place actually exists.", 'Error!')
+    }
 });
 
 // weather from local storage + second api
@@ -168,20 +192,21 @@ $(document).ready(function () {
 
     if (citweather !== null) {
 
-        $("#getClothingBtn").css("display", "block");
-        $("#weatherContainer").css("display", "block");
-
-
-
         var APIKey = "298a4f435bb40084f3affdac067f0650";
 
         var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
 
         $.ajax({
             url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            // console.log(response);
+            method: "GET",
+            success: weatherCall,
+            error: weatherError
+        });
+
+        function weatherCall(response) {
+
+            $("#getClothingBtn").css("display", "block");
+            $("#weatherContainer").css("display", "block");
 
             var fiveDayForecast = []
 
@@ -219,9 +244,29 @@ $(document).ready(function () {
 
             // It would run a function that will update items in imagesArray
             suggestItems();
-        });
+        };
     }
 
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "showDuration": "2000",
+        "hideDuration": "2000",
+        "timeOut": "4000",
+        "extendedTimeOut": "2000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    function weatherError() {
+        toastr.error("We couldn't find your last saved search, check the spelling or whether this place actually exists.", 'Uh oh...')
+    }
 })
 
 var imagesArray = [
@@ -499,23 +544,6 @@ var cxC = '007241596936031581208:qzqpad7wyv5';
 var cxM = "009075084732258994516:lralsp7otlc";
 var cxJ = "006909077347969630804:48vbvnkdqu9";
 
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": true,
-    "progressBar": false,
-    "positionClass": "toast-top-center",
-    "preventDuplicates": false,
-    "showDuration": "1000",
-    "hideDuration": "1000",
-    "timeOut": "2000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
-
 
 // for each function that will go object by object in our imagesArray
 $('#getClothingBtn').on('click', function () {
@@ -630,6 +658,22 @@ $('#getClothingBtn').on('click', function () {
 
         // remove loader after images load 
         $('#loader').empty();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
 
 
         function storeItems() {
