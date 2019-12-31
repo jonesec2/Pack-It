@@ -90,6 +90,8 @@ $("#searchBtn").on("click", function (e) {
     // Empties suggested items generated from previous search (Seohui)
     $('#suggestedItems').empty();
 
+    //displays the weather container on search
+    $("#weatherContainer").css("display", "block");
 
     // grabs city name from text input area
     var location = $(".form-control").val();
@@ -168,7 +170,7 @@ $(document).ready(function () {
 
         $("#getClothingBtn").css("display", "block");
         $("#weatherContainer").css("display", "block");
-        
+
 
 
         var APIKey = "298a4f435bb40084f3affdac067f0650";
@@ -214,6 +216,9 @@ $(document).ready(function () {
                 var windSpeed = $(row5).find(".wind-speed")
                 windSpeed.text(obj.wind.speed)
             });
+
+            // It would run a function that will update items in imagesArray (Seohui)
+            suggestItems();
 
         });
     }
@@ -287,7 +292,7 @@ var imagesArray = [
         imageName3: null
     }
 ];
-
+console.log(imagesArray)
 
 function suggestItems() {
     var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
@@ -477,6 +482,7 @@ function suggestItems() {
             }
 
         }
+        console.log(imagesArray)
     });
 
     console.log(imagesArray);
@@ -512,7 +518,7 @@ toastr.options = {
 }
 
 
-// for each function that will go object by object in out imagesArray
+// for each function that will go object by object in our imagesArray
 $('#getClothingBtn').on('click', function () {
 
     $('#suggestedItems').empty();
@@ -633,7 +639,7 @@ $('#getClothingBtn').on('click', function () {
 
                 toastr.success('Clothing added to your suitcase.', 'Success!')
 
-                
+
                 // Prevent link click from redirecting to top of page
                 event.preventDefault();
                 var imgURL = $(this).parents(".clothing-card").children("img").attr("src");
