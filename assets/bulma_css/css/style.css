@@ -18280,25 +18280,22 @@ footer p {
 .clothing-card {
   margin: 2%;
   width: 96%;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 96%;
-          flex: 1 96%;
+  -ms-flex-preferred-size: 96%;
+      flex-basis: 96%;
   padding-bottom: 0 !important;
 }
 
 @media (min-width: 440px) {
   .clothing-card {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 42%;
-            flex: 1 42%;
+    -ms-flex-preferred-size: 46%;
+        flex-basis: 46%;
   }
 }
 
 @media (min-width: 767px) {
   .clothing-card {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 21.333%;
-            flex: 1 21.333%;
+    -ms-flex-preferred-size: 29.333%;
+        flex-basis: 29.333%;
   }
 }
 
