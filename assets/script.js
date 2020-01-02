@@ -92,6 +92,7 @@ $("#searchBtn").on("click", function (e) {
 
     // grabs city name from text input area
     var location = $(".form-control").val();
+    location = location.charAt(0).toUpperCase() + location.substring(1).toLowerCase();
 
     // sets city-name = to user type
     $('#cityName').text(location)
@@ -240,6 +241,11 @@ $(document).ready(function () {
                 var row5 = $(".weatherCard")[i]
                 var windSpeed = $(row5).find(".wind-speed")
                 windSpeed.text(obj.wind.speed)
+
+                // Connecting weather API data to keywords generated in terms of weather conditions
+                imagesArray[i].date = obj.dt_txt.split(" ")[0];
+                weatherArray[i].temp = obj.main.temp;
+                weatherArray[i].condition = obj.weather[0].id;
             });
 
             // It would run a function that will update items in imagesArray
