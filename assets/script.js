@@ -577,7 +577,7 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            cKey + "&cx=" + cxC + "&searchType=image&q=" + element.item1 + " 500x500";
+            mKey + "&cx=" + cxM + "&searchType=image&q=" + element.item1 + " 500x500";
 
 
 
