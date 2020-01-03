@@ -145,11 +145,12 @@ $("#searchBtn").on("click", function (e) {
             // update humidity 
             var row4 = $(".weatherCard")[i]
             var weatherHumi = $(row4).find(".humidity")
-            weatherHumi.text(obj.main.humidity + "%")
+            weatherHumi.text(obj.main.humidity + "% Humidity")
             // update wind speed 
             var row5 = $(".weatherCard")[i]
             var windSpeed = $(row5).find(".wind-speed")
             windSpeed.text(obj.wind.speed)
+            windSpeed.addClass("fa fa-flag")
 
             // Connecting weather API data to keywords generated in terms of weather conditions
             imagesArray[i].date = obj.dt_txt.split(" ")[0];
@@ -236,7 +237,7 @@ $(document).ready(function () {
                 // update humidity 
                 var row4 = $(".weatherCard")[i]
                 var weatherHumi = $(row4).find(".humidity")
-                weatherHumi.text(obj.main.humidity + "%")
+                weatherHumi.text(obj.main.humidity + "% Humidity")
                 // update windspeed 
                 var row5 = $(".weatherCard")[i]
                 var windSpeed = $(row5).find(".wind-speed")
