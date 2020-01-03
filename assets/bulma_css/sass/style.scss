@@ -65,6 +65,14 @@ h3 {
     font-weight: bold;
 }
 
+a {
+    transition: .4s all;
+    &:hover, &:focus {
+        opacity: .5;
+        text-decoration: none; 
+    }
+}
+
 
 /* ---- Layout */
 * {
@@ -134,11 +142,6 @@ footer {
             background-color: $white;
             border-radius: 50%;
             padding: .5em 1em;
-            transition: .6s all;
-            &:hover, &:focus {
-                opacity: .7;
-                text-decoration: none; 
-            }
         }
     }
 }
@@ -198,12 +201,19 @@ body {
             }
             .weather-data-container {
                 align-items: center;
-                padding: 0 1em!important;
+                padding: 0 2em!important;
                 background-color: $dark-blue;
                 color: $white;
-                // .fa {
-                //     font-family: $family-sans-serif;
-                // }
+                .wind-speed {
+                    margin-right: .5em;
+                }
+                .fa-flag::before {
+                    content: "\f024";
+                
+                }
+                .fa {
+                    font-weight: 100;
+                }
             }
         }
     }
@@ -250,15 +260,10 @@ body {
 
 
 /* ---- Suitcase Page */
-
-
-.fa-flag::before {
-    content: "\f024";
-    position: absolute;
-    right: 5px;
-
-}
-
-.fa {
-    font-weight: 100;
+#suitcasePage {
+    .amazon-icon {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+    }
 }

@@ -30,6 +30,7 @@ function displayToSuitcase() {
     $.each(savedItems, function (key, value) {
         var newSuitcaseItem = /*html*/`
         <div class="clothing-card card">
+            <a href="#" class="amazon-icon"><i class="fab fa-amazon"></i></a>
             <img src="${value[1]}">
                 <div class="d-flex justify-content-between pt-2">
                     <p class="clothing-name">${value[0]}</p>
@@ -43,6 +44,11 @@ function displayToSuitcase() {
     // Give each suitcase card a unique data-button-number to know which to remove later
     $("#suitcasePage .clothing-card").map(function (i) {
         $(this).attr("data-card-number", i);
+    })
+
+    // Give each amazon link a unique data-amazon-number to know which link to assign to
+    $("#suitcasePage .amazon-icon").map(function (i) {
+        $(this).attr("data-amazon-number", i);
     })
 }
 
