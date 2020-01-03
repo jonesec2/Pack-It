@@ -18307,7 +18307,7 @@ footer p {
 
 .clothing-card img {
   width: 100%;
-  padding: 1em;
+  padding: 3em;
 }
 
 .clothing-card div {
@@ -18399,6 +18399,19 @@ body {
 #homepage #weatherContainer {
   width: 96%;
   margin: auto;
+}
+
+#homepage #weatherContainer .weatherCard .date-container {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#homepage #weatherContainer .weatherCard .weather-data-container {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 1em !important;
 }
 
 #homepage .date-container {

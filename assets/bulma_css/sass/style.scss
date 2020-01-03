@@ -124,7 +124,7 @@ footer {
     }
     img {
         width: 100%;
-        padding: 1em;
+        padding: 3em;
         // display: block;
         // margin-right: auto;
         // margin-left: auto;
@@ -195,6 +195,15 @@ body {
     #weatherContainer {
         width: 96%;
         margin: auto;
+        .weatherCard {
+            .date-container {
+                align-self: center;
+            }
+            .weather-data-container {
+                align-items: center;
+                padding: 0 1em!important;
+            }
+        }
     }
     .date-container  {
         width: 100%;
