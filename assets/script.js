@@ -150,7 +150,7 @@ $("#searchBtn").on("click", function (e) {
             var row5 = $(".weatherCard")[i]
             var windSpeed = $(row5).find(".wind-speed")
             windSpeed.text(obj.wind.speed)
-            windSpeed.addClass("fa fa-flag")
+            
 
             // Connecting weather API data to keywords generated in terms of weather conditions
             imagesArray[i].date = obj.dt_txt.split(" ")[0];
@@ -578,7 +578,7 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            cKey + "&cx=" + cxC + "&searchType=image&q=" + element.item1 + " 500x500";
+            jKey + "&cx=" + cxJ + "&searchType=image&q=" + element.item1 + " 500x500";
 
 
 
@@ -593,28 +593,32 @@ $('#getClothingBtn').on('click', function () {
 
         });
 
-        // Seohui: I commented these out to save our limited ajax calls ---------------------------------
-
         // second ajax call, this goes over the element.item2 for each object
-        // $.ajax({ url: query + element.item2, method: "GET" }).then(function (response) {
 
-        //     // we then store the results back into imagesArray
-        //     element.imageResult2 = response.items[0].image.thumbnailLink
-        //     element.imageName2 = response.queries.request[0].searchTerms
+        var queryTwo = "https://www.googleapis.com/customsearch/v1?key=" +
+            jKey + "&cx=" + cxJ + "&searchType=image&q=" + element.item2 + " 500x500";
+        $.ajax({ url: queryTwo, method: "GET" }).then(function (response) {
 
-        //     console.log(element.imageName2 + ": " + element.imageResult2)
+            // we then store the results back into imagesArray
+            element.imageResult2 = response.items[0].image.thumbnailLink
+            element.imageName2 = response.queries.request[0].searchTerms
 
-        // });
+            console.log(element.imageName2 + ": " + element.imageResult2)
+
+        });
+
+        var queryThree = "https://www.googleapis.com/customsearch/v1?key=" +
+        jKey + "&cx=" + cxJ + "&searchType=image&q=" + element.item3 + " 500x500";
         // third ajax call, this goes over the element.item3 for each object
-        // $.ajax({ url: query + element.item3, method: "GET" }).then(function (response) {
+        $.ajax({ url: queryThree, method: "GET" }).then(function (response) {
 
-        //     // we then store the results back into imagesArray
-        //     element.imageResult3 = response.items[0].image.thumbnailLink
-        //     element.imageName3 = response.queries.request[0].searchTerms
+            // we then store the results back into imagesArray
+            element.imageResult3 = response.items[0].image.thumbnailLink
+            element.imageName3 = response.queries.request[0].searchTerms
 
-        //     console.log(element.imageName3 + ": " + element.imageResult3)
+            console.log(element.imageName3 + ": " + element.imageResult3)
 
-        // });
+        });
 
         // ---------------------------------------------------------------------------------------------------
 
@@ -632,8 +636,6 @@ $('#getClothingBtn').on('click', function () {
 
             // setting the html using an template literal with ``
             // we'll call the imageArray and append to page for as many as we have results
-
-            // Seohui: I enabled only the first image of each day to show up in HTML -----------------------------------------------
             var newImage = /*html*/`
             
             <div class="clothing-card card">
@@ -644,14 +646,14 @@ $('#getClothingBtn').on('click', function () {
                     </div>
             </div>
             <div class="clothing-card card">
-                <img id="${element.item2 + i}" src="https://via.placeholder.com/150" >
+                <img id="${element.item2 + i}" src="${element.imageResult2}" >
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.item2}</p>
                         <a href="#" id="${element.item2 + element.buttonIdOne + i}">+</a>
                     </div>
             </div>
             <div class="clothing-card card">
-                    <img id="${element.item3 + i}" src="https://via.placeholder.com/150">
+                    <img id="${element.item3 + i}" src="${element.imageResult3}">
                     <div class="d-flex justify-content-between pt-2">
                         <p class="clothing-name">${element.item3}</p>
                         <a href="#" id="${element.item3 + element.buttonIdOne + i}">+</a>
