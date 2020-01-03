@@ -18234,6 +18234,12 @@ h3 {
   background-color: #1d384a !important;
 }
 
+@media (min-width: 768px) {
+  .navbar-container nav {
+    padding: .5em 10%;
+  }
+}
+
 .navbar-container nav h4 {
   font-family: "Oleo Script", cursive;
   font-size: 1.5em;
@@ -18300,15 +18306,12 @@ footer p {
 }
 
 .clothing-card img {
-  /* width: 100%; */
+  width: 100%;
   padding: 1em;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .clothing-card div {
-  padding: 1em;
+  padding: 1em !important;
   background-color: #1d384a;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -18357,7 +18360,13 @@ body {
   padding: 20% 0 !important;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 670px) {
+  #homepage #searchContainer .card {
+    background: #fff url("../../images/hero.jpg") no-repeat 30% center/cover;
+  }
+}
+
+@media (min-width: 800px) {
   #homepage #searchContainer .card {
     background: #fff url("../../images/hero.jpg") no-repeat 20% center/cover;
   }
