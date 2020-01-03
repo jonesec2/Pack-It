@@ -577,8 +577,8 @@ $('#getClothingBtn').on('click', function () {
 
     imagesArray.forEach(function (element) {
 
-        var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            jKey + "&cx=" + cxJ + "&searchType=image&q=" + element.item1 + " 500x500";
+        var query = "https://cors-anywhere.herokuapp.com/"+ "https://www.googleapis.com/customsearch/v1?key=" +
+            jKey + "&cx=" + cxJ + "&searchType=image&q=" +  element.item1 + " 500x500";
 
 
 
@@ -595,7 +595,7 @@ $('#getClothingBtn').on('click', function () {
 
         // second ajax call, this goes over the element.item2 for each object
 
-        var queryTwo = "https://www.googleapis.com/customsearch/v1?key=" +
+        var queryTwo = "https://cors-anywhere.herokuapp.com/"+"https://www.googleapis.com/customsearch/v1?key=" +
             jKey + "&cx=" + cxJ + "&searchType=image&q=" + element.item2 + " 500x500";
         $.ajax({ url: queryTwo, method: "GET" }).then(function (response) {
 
@@ -607,7 +607,7 @@ $('#getClothingBtn').on('click', function () {
 
         });
 
-        var queryThree = "https://www.googleapis.com/customsearch/v1?key=" +
+        var queryThree = "https://cors-anywhere.herokuapp.com/"+"https://www.googleapis.com/customsearch/v1?key=" +
         jKey + "&cx=" + cxJ + "&searchType=image&q=" + element.item3 + " 500x500";
         // third ajax call, this goes over the element.item3 for each object
         $.ajax({ url: queryThree, method: "GET" }).then(function (response) {
