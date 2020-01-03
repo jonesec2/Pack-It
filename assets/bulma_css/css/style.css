@@ -18224,6 +18224,16 @@ h3 {
   font-weight: bold;
 }
 
+a {
+  -webkit-transition: .4s all;
+  transition: .4s all;
+}
+
+a:hover, a:focus {
+  opacity: .5;
+  text-decoration: none;
+}
+
 /* ---- Layout */
 * {
   -webkit-box-sizing: border-box;
@@ -18307,7 +18317,7 @@ footer p {
 
 .clothing-card img {
   width: 100%;
-  padding: 1em;
+  padding: 3em;
 }
 
 .clothing-card div {
@@ -18326,13 +18336,6 @@ footer p {
   background-color: #fff;
   border-radius: 50%;
   padding: .5em 1em;
-  -webkit-transition: .6s all;
-  transition: .6s all;
-}
-
-.clothing-card div a:hover, .clothing-card div a:focus {
-  opacity: .7;
-  text-decoration: none;
 }
 
 /* ---- Sticky Footer */
@@ -18399,6 +18402,39 @@ body {
 #homepage #weatherContainer {
   width: 96%;
   margin: auto;
+}
+
+#homepage #weatherContainer .weatherCard {
+  font-family: "Nunito", sans-serif;
+}
+
+#homepage #weatherContainer .weatherCard .date-container {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  background-color: #fff;
+  color: #1d384a !important;
+}
+
+#homepage #weatherContainer .weatherCard .weather-data-container {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 2em !important;
+  background-color: #1d384a;
+  color: #fff;
+}
+
+#homepage #weatherContainer .weatherCard .weather-data-container .wind-speed {
+  margin-right: .5em;
+}
+
+#homepage #weatherContainer .weatherCard .weather-data-container .fa-flag::before {
+  content: "\f024";
+}
+
+#homepage #weatherContainer .weatherCard .weather-data-container .fa {
+  font-weight: 100;
 }
 
 #homepage .date-container {
@@ -18477,13 +18513,9 @@ body {
 }
 
 /* ---- Suitcase Page */
-.fa-flag::before {
-  content: "\f024";
+#suitcasePage .amazon-icon {
   position: absolute;
-  right: 5px;
-}
-
-.fa {
-  font-weight: 100;
+  right: 15px;
+  top: 10px;
 }
 /*# sourceMappingURL=style.css.map */
