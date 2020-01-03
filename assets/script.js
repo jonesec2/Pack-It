@@ -359,7 +359,7 @@ function suggestItems() {
     var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Drawstring Shorts", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
     var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
     var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wide-Leg Pants", "Beanie", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
-    var generalCold = ["Sweater", "Down Jacket", "Cashmere Scarf", "Puffer Coat", "Scarves", "Turtleneck", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
+    var generalCold = ["Sweater", "Windproof Jacket", "Cashmere Scarf", "Black Jeans", "Scarves", "Woolen Coats", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
 
     var sunnyHot = ["Cotton Shorts", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
     var sunnyMild = ["Cotton Shorts", "Sunglasses", "Water Bottle", "Drawstring Shorts", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
@@ -539,7 +539,6 @@ function suggestItems() {
             }
 
         }
-        console.log(imagesArray)
     });
 
     console.log(imagesArray);
@@ -587,7 +586,7 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            sKey2 + "&cx=" + cxS2 + "&searchType=image&q=" +  element.item1 + " 500x500";
+            sKey + "&cx=" + cxS + "&searchType=image&q=" +  element.item1 + " 500x500";
 
 
 
@@ -605,7 +604,7 @@ $('#getClothingBtn').on('click', function () {
         // second ajax call, this goes over the element.item2 for each object
 
         var queryTwo = "https://www.googleapis.com/customsearch/v1?key=" +
-            sKey2 + "&cx=" + cxS2 + "&searchType=image&q=" + element.item2 + " 500x500";
+            sKey + "&cx=" + cxS + "&searchType=image&q=" + element.item2 + " 500x500";
         $.ajax({ url: queryTwo, method: "GET" }).then(function (response) {
 
             // we then store the results back into imagesArray
@@ -617,7 +616,7 @@ $('#getClothingBtn').on('click', function () {
         });
 
         var queryThree = "https://www.googleapis.com/customsearch/v1?key=" +
-        sKey2 + "&cx=" + cxS2 + "&searchType=image&q=" + element.item3 + " 500x500";
+        sKey + "&cx=" + cxS + "&searchType=image&q=" + element.item3 + " 500x500";
         // third ajax call, this goes over the element.item3 for each object
         $.ajax({ url: queryThree, method: "GET" }).then(function (response) {
 
