@@ -18498,4 +18498,13 @@ body {
 }
 
 /* ---- Suitcase Page */
+.fa-flag::before {
+  content: "\f024";
+  position: absolute;
+  right: 5px;
+}
+
+.fa {
+  font-weight: 100;
+}
 /*# sourceMappingURL=style.css.map */
