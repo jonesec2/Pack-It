@@ -74,6 +74,9 @@ h3 {
 .navbar-container {
     nav {
         background-color: $dark-blue!important;
+        @media (min-width: 768px) {
+            padding: .5em 10%;
+        }
         h4 {
             font-family: $logo-font;
             font-size: 1.5em;
@@ -120,14 +123,14 @@ footer {
         flex-basis: 29.333%;
     }
     img {
-        /* width: 100%; */
+        width: 100%;
         padding: 1em;
-        display: block;
-        margin-right: auto;
-        margin-left: auto;
+        // display: block;
+        // margin-right: auto;
+        // margin-left: auto;
     }
     div {
-        padding: 1em;
+        padding: 1em!important;
         background-color: $dark-blue;
         align-items: center;
         p {
@@ -164,7 +167,10 @@ body {
     #searchContainer .card {
         background: $white url("../../images/hero.jpg") no-repeat top center / cover;
         padding: 20% 0!important;
-        @media (min-width: 600px) {
+        @media (min-width: 670px) {
+            background: $white url("../../images/hero.jpg") no-repeat 30% center / cover;
+        }
+        @media (min-width: 800px) {
             background: $white url("../../images/hero.jpg") no-repeat 20% center / cover;
         }
         .search-text {
@@ -234,3 +240,14 @@ body {
 
 /* ---- Suitcase Page */
 
+
+.fa-flag::before {
+    content: "\f024";
+    position: absolute;
+    right: 5px;
+
+}
+
+.fa {
+    font-weight: 100;
+}
