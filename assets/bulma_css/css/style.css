@@ -18401,10 +18401,16 @@ body {
   margin: auto;
 }
 
+#homepage #weatherContainer .weatherCard {
+  font-family: "Nunito", sans-serif;
+}
+
 #homepage #weatherContainer .weatherCard .date-container {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  background-color: #fff;
+  color: #1d384a !important;
 }
 
 #homepage #weatherContainer .weatherCard .weather-data-container {
@@ -18412,6 +18418,8 @@ body {
       -ms-flex-align: center;
           align-items: center;
   padding: 0 1em !important;
+  background-color: #1d384a;
+  color: #fff;
 }
 
 #homepage .date-container {

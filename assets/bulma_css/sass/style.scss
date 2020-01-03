@@ -111,23 +111,17 @@ footer {
 .clothing-card {
     margin: 2%;
     width: 96%;
-    // flex: 1 96%;
     flex-basis: 96%;
     padding-bottom: 0!important;
     @media (min-width: 440px) {
-        // flex: 1 42%;
         flex-basis: 46%;
     }
     @media (min-width: 767px) {
-        // flex: 1 21.333%;
         flex-basis: 29.333%;
     }
     img {
         width: 100%;
         padding: 3em;
-        // display: block;
-        // margin-right: auto;
-        // margin-left: auto;
     }
     div {
         padding: 1em!important;
@@ -196,12 +190,20 @@ body {
         width: 96%;
         margin: auto;
         .weatherCard {
+            font-family: $family-sans-serif;
             .date-container {
                 align-self: center;
+                background-color: $white;
+                color: $dark-blue!important;
             }
             .weather-data-container {
                 align-items: center;
                 padding: 0 1em!important;
+                background-color: $dark-blue;
+                color: $white;
+                // .fa {
+                //     font-family: $family-sans-serif;
+                // }
             }
         }
     }
