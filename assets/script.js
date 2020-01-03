@@ -21,6 +21,8 @@ $(document).ready(function () {
     }
     init();
 });
+console.log(weatherArray)
+console.log(imagesArray)
 
 
 // Display selected clothing items to suitcase page
@@ -96,12 +98,10 @@ $("#searchBtn").on("click", function (e) {
     // sets city-name = to user type
     $('#cityName').text(location)
 
-    console.log(location);
+    
     //setting city into local storage
     localStorage.setItem("cit-name", (location));
 
-
-    console.log(location);
 
     // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
@@ -184,6 +184,8 @@ $("#searchBtn").on("click", function (e) {
 
     function weatherError() {
         toastr.error("We couldn't find your city, check the spelling or whether this place actually exists.", 'Error!')
+        $("#getClothingBtn").css("display", "none");
+        $("#weatherContainer").css("display", "none");
     }
 });
 
@@ -192,7 +194,7 @@ $(document).ready(function () {
 
     if (citweather !== null) {
 
-        var APIKey = "298a4f435bb40084f3affdac067f0650";
+        // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
         var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
 
@@ -339,6 +341,7 @@ var imagesArray = [
 console.log(imagesArray)
 
 function suggestItems() {
+    console.log(imagesArray)
     var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
 
     var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
@@ -547,6 +550,8 @@ var cxJ = "006909077347969630804:48vbvnkdqu9";
 
 // for each function that will go object by object in our imagesArray
 $('#getClothingBtn').on('click', function () {
+    console.log(imagesArray)
+    console.log(weatherArray)
 
     $('#suggestedItems').empty();
 
@@ -577,6 +582,7 @@ $('#getClothingBtn').on('click', function () {
 
         // first ajax call, this goes over the element.item1 for each object
         $.ajax({ url: query, method: "GET" }).then(function (response) {
+            console.log(response)
 
             // we then store the results back into imagesArray
             element.imageResult1 = response.items[0].image.thumbnailLink
@@ -616,11 +622,12 @@ $('#getClothingBtn').on('click', function () {
     // we want to set a timeout function to give the ajax calls time to complete and write to array
     // if we don't it's possible the next forEach function would run before any information is stored
     setTimeout(function () {
-
+        console.log("test")
         // next forEach function that calls imagesArray again
         // now that we stored the image src and image name in previous forEach
         // we can access to append to page as html
         imagesArray.forEach(function (element, i) {
+            console.log(element)
 
 
             // setting the html using an template literal with ``
@@ -681,6 +688,7 @@ $('#getClothingBtn').on('click', function () {
             $(".clothing-card div a").on("click", function (event) {
 
                 toastr.success('Clothing added to your suitcase.', 'Success!')
+                console.log(event)
 
 
                 // Prevent link click from redirecting to top of page
