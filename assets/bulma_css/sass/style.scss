@@ -82,6 +82,14 @@ a {
 .navbar-container {
     nav {
         background-color: $dark-blue!important;
+        .navbar-toggler {
+            transition: all .4s;
+            &:hover, &:focus {
+                outline: none !important;
+                box-shadow: none;
+                opacity: .4;
+            }
+        }
         @media (min-width: 768px) {
             padding: .5em 10%;
         }
@@ -159,16 +167,13 @@ body {
 }
 
 
-/* ---- Homepage/Search Page */
+/* ----  Homepage/Search Page */
 #homepage  {
     #searchContainer .card {
-        background: $white url("../../images/hero.jpg") no-repeat top center / cover;
-        padding: 20% 0!important;
+        background: $white url("../../images/hero.jpg") no-repeat 39% center / cover;
+        height: calc(100vh - 68px);
         @media (min-width: 670px) {
             background: $white url("../../images/hero.jpg") no-repeat 30% center / cover;
-        }
-        @media (min-width: 800px) {
-            background: $white url("../../images/hero.jpg") no-repeat 20% center / cover;
         }
         .search-text {
             @media (min-width: 600px) {
@@ -182,10 +187,23 @@ body {
             width: 70%;
             max-width: 400px;
             margin: auto;
-            .input-group button {
+            #cityInput {
+                &:hover, &:focus {
+                    outline: none !important;
+                    box-shadow: none;
+                    border-color: $orange;
+                }
+            }
+            #searchBtn {
                 background-color: $orange;
                 color: $black;
                 border: none;
+                transition: all .4s;
+                &:hover, &:focus {
+                    outline: none !important;
+                    box-shadow: none;
+                    background-color: darken($orange, 10%);
+                }
             }
         }
     }
@@ -230,6 +248,12 @@ body {
         color: $black;
         border: none;
         font-weight: bold;
+        transition: all .4s;
+        &:hover, &:focus {
+            outline: none !important;
+            box-shadow: none;
+            background-color: darken($orange, 10%);
+        }
         @media (min-width: 440px) {
             max-width: 300px;
         }
