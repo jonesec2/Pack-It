@@ -18244,6 +18244,18 @@ a:hover, a:focus {
   background-color: #1d384a !important;
 }
 
+.navbar-container nav .navbar-toggler {
+  -webkit-transition: all .4s;
+  transition: all .4s;
+}
+
+.navbar-container nav .navbar-toggler:hover, .navbar-container nav .navbar-toggler:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  opacity: .4;
+}
+
 @media (min-width: 768px) {
   .navbar-container nav {
     padding: .5em 10%;
@@ -18359,19 +18371,13 @@ body {
 
 /* ---- Homepage/Search Page */
 #homepage #searchContainer .card {
-  background: #fff url("../../images/hero.jpg") no-repeat top center/cover;
-  padding: 20% 0 !important;
+  background: #fff url("../../images/hero.jpg") no-repeat 39% center/cover;
+  height: calc(100vh - 68px);
 }
 
 @media (min-width: 670px) {
   #homepage #searchContainer .card {
     background: #fff url("../../images/hero.jpg") no-repeat 30% center/cover;
-  }
-}
-
-@media (min-width: 800px) {
-  #homepage #searchContainer .card {
-    background: #fff url("../../images/hero.jpg") no-repeat 20% center/cover;
   }
 }
 
@@ -18393,10 +18399,26 @@ body {
   margin: auto;
 }
 
-#homepage #searchContainer .card .row .input-group button {
+#homepage #searchContainer .card .row #cityInput:hover, #homepage #searchContainer .card .row #cityInput:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-color: #ed7903;
+}
+
+#homepage #searchContainer .card .row #searchBtn {
   background-color: #ed7903;
   color: #000;
   border: none;
+  -webkit-transition: all .4s;
+  transition: all .4s;
+}
+
+#homepage #searchContainer .card .row #searchBtn:hover, #homepage #searchContainer .card .row #searchBtn:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background-color: #bb5f02;
 }
 
 #homepage #weatherContainer {
@@ -18454,6 +18476,15 @@ body {
   color: #000;
   border: none;
   font-weight: bold;
+  -webkit-transition: all .4s;
+  transition: all .4s;
+}
+
+#homepage #getClothingBtn:hover, #homepage #getClothingBtn:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background-color: #bb5f02;
 }
 
 @media (min-width: 440px) {
