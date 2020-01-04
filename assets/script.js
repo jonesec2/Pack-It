@@ -171,6 +171,10 @@ $("#searchBtn").on("click", function (e) {
         $("#getClothingBtn").css("display", "block");
 
         console.log(weatherArray);
+
+        // Smooth scroll to weather container on search if entry is valid
+        $('html,body').animate({scrollTop:$("#weatherContainer").offset().top}, 500);
+        
     };
 
     toastr.options = {
