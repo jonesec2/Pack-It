@@ -18369,7 +18369,7 @@ body {
   min-height: auto;
 }
 
-/* ---- Homepage/Search Page */
+/* ----  Homepage/Search Page */
 #homepage #searchContainer .card {
   background: #fff url("../../images/hero.jpg") no-repeat 39% center/cover;
   height: calc(100vh - 68px);
