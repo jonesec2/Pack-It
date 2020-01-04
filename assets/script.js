@@ -112,7 +112,7 @@ $("#searchBtn").on("click", function (e) {
 
     // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
-    var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
+    var queryURL = `https://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${location}`
 
     $.ajax({
         url: queryURL,
@@ -202,7 +202,7 @@ $(document).ready(function () {
 
         var APIKey = "298a4f435bb40084f3affdac067f0650";
 
-        var queryURL = `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
+        var queryURL = `https://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=298a4f435bb40084f3affdac067f0650&q=${citweather}`
 
         $.ajax({
             url: queryURL,
@@ -354,15 +354,15 @@ console.log(imagesArray)
 function suggestItems() {
     var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
 
-    var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Snow Hat"];
+    var snow = ["Snow Boots", "Snow Jackets", "Snow Gloves", "Snow Pants", "Winter Hats"];
 
     var generalHot = ["Short Sleeve Top", "Short Pants", "Water Bottle", "Drawstring Shorts", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Hand Sanitizer", "V-Neck Shirt", "Quick Drying Shorts", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
-    var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Long Sleeve Blouse", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
+    var generalMild = ["Long-Sleeved T-Shirt", "Jeans", "Silk Trousers", "Straight Pants", "Lightweight Hat", "Walking Shoes", "Tote", "Tunic", "Light Cardigan", "Button Down Shirt", "V-Neck Shirt", "Quick Drying Shorts", "Travel Pants", "Lightweight Trail Runners", "Dry Fit Shirts", "Travel Towel", "Stretch T-Shirt"];
     var generalChilly = ["Trench Coat", "Muffler Scarf", "Silk Scarf", "Plaid Coat", "Denim Shirt", "Cardigan", "Fleece Pullover", "Long Sleeve Crew", "Wide-Leg Pants", "Beanie", "Travel Jeans", "Lightweight Trail Runners", "Ultra-Light Jackets", "Fleece Jacket", "Flannel Shirt", "Packable Down Jacket"];
-    var generalCold = ["Sweater", "Windproof Jacket", "Cashmere Scarf", "Black Jeans", "Scarves", "Woolen Coats", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
+    var generalCold = ["Fleece Gloves", "Windproof Jacket", "Cashmere Scarf", "Black Jeans", "Scarves", "Woolen Coats", "Thermal Shirt", "Wool Varsity Jacket", "Ultra-Light Jackets", "Warm Hat", "Down Pullover", "Wool Socks", "Flannel Shirt", "Warm Lounge Pants", "Fleece Pullover", "Fleece Jacket", "Loose Jeans"];
 
     var sunnyHot = ["Cotton Shorts", "Straw Hat", "Sunglasses", "Flip Flops", "Sandals", "Snorkel Mask", "Water Shoes", "Swim Shirt", "Upf Top", "Linen Pants"];
-    var sunnyMild = ["Cotton Shorts", "Sunglasses", "Water Bottle", "Drawstring Shorts", "Swim Shirt", "Bandana", "Quick Drying Pants", "Linen Pants", "Upf Top", "Swap Pants"];
+    var sunnyMild = ["Cotton Shorts", "Sunglasses", "Water Bottle", "Drawstring Shorts", "Swim Shirt", "Sleeveless Shirts", "Quick Drying Pants", "Linen Pants", "Upf Top", "Casual Tee"];
 
     imagesArray.forEach(function (element, i) {
         // Group 2xx: Thunderstorm, Group 3xx: Drizzle, Group 5xx: Rain
@@ -586,7 +586,7 @@ $('#getClothingBtn').on('click', function () {
     imagesArray.forEach(function (element) {
 
         var query = "https://www.googleapis.com/customsearch/v1?key=" +
-            sKey + "&cx=" + cxS + "&searchType=image&q=" +  element.item1 + " 500x500";
+            mKey + "&cx=" + cxM + "&searchType=image&q=" +  element.item1 + " 500x500";
 
 
 
@@ -604,7 +604,7 @@ $('#getClothingBtn').on('click', function () {
         // second ajax call, this goes over the element.item2 for each object
 
         var queryTwo = "https://www.googleapis.com/customsearch/v1?key=" +
-            sKey + "&cx=" + cxS + "&searchType=image&q=" + element.item2 + " 500x500";
+            mKey + "&cx=" + cxM + "&searchType=image&q=" + element.item2 + " 500x500";
         $.ajax({ url: queryTwo, method: "GET" }).then(function (response) {
 
             // we then store the results back into imagesArray
@@ -616,7 +616,7 @@ $('#getClothingBtn').on('click', function () {
         });
 
         var queryThree = "https://www.googleapis.com/customsearch/v1?key=" +
-        sKey + "&cx=" + cxS + "&searchType=image&q=" + element.item3 + " 500x500";
+        mKey + "&cx=" + cxM + "&searchType=image&q=" + element.item3 + " 500x500";
         // third ajax call, this goes over the element.item3 for each object
         $.ajax({ url: queryThree, method: "GET" }).then(function (response) {
 
