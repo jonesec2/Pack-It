@@ -27,10 +27,11 @@ $(document).ready(function () {
 function displayToSuitcase() {
     // Clear page of cards before updated cards are displayed (to avoid duplicates)
     $("#suitcasePage .wrapper").empty();
+
     $.each(savedItems, function (key, value) {
         var newSuitcaseItem = /*html*/`
         <div class="clothing-card card">
-            <a href="#" class="amazon-icon"><i class="fab fa-amazon"></i></a>
+            <a href="#" onclick="window.open('https://www.amazon.com/s?k=${value[0].split(' ').join('+')}&rh=p_85%3A2470955011&dc&qid=1578064701&rnid=2470954011&ref=sr_nr_p_85_1', '_blank');window.close();return flase" class="amazon-icon"><i class="fab fa-amazon"></i></a>
             <img src="${value[1]}">
                 <div class="d-flex justify-content-between pt-2">
                     <p class="clothing-name">${value[0]}</p>
@@ -51,6 +52,8 @@ function displayToSuitcase() {
         $(this).attr("data-amazon-number", i);
     })
 }
+
+
 
 
 // When a remove button inside of a card is clicked...
@@ -92,8 +95,9 @@ $("#searchBtn").on("click", function (e) {
 
     // empties out old city name
     $('#cityName').empty();
+    
 
-    // Empties suggested items generated from previous search (Seohui)
+    // Empties suggested items generated from previous search
     $('#suggestedItems').empty();
 
     // grabs city name from text input area
@@ -103,12 +107,9 @@ $("#searchBtn").on("click", function (e) {
     // sets city-name = to user type
     $('#cityName').text(location)
 
-    console.log(location);
     //setting city into local storage
     localStorage.setItem("cit-name", (location));
 
-
-    console.log(location);
 
     // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
@@ -122,7 +123,7 @@ $("#searchBtn").on("click", function (e) {
     });
 
     function weatherCall(response) {
-        // console.log(response);
+
         //displays the weather container on search
         $("#weatherContainer").css("display", "block");
 
@@ -143,7 +144,7 @@ $("#searchBtn").on("click", function (e) {
             // update icon, temp, humidity, and wind speed to corresponding weatherCard
             var row2 = $(".weatherCard")[i]
             var weatherIcon = $(row2).find(".weather-icon")
-            weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+            weatherIcon.attr("src", `https://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
             // update temp
             var row3 = $(".weatherCard")[i]
             var weatherTemp = $(row3).find(".temperature")
@@ -170,7 +171,9 @@ $("#searchBtn").on("click", function (e) {
         // Once the city weather button is clicked, it will display get-clothing-options button
         $("#getClothingBtn").css("display", "block");
 
-        console.log(weatherArray);
+        //removes text after successful search
+        $('.form-control').val('');
+
     };
 
     toastr.options = {
@@ -192,6 +195,8 @@ $("#searchBtn").on("click", function (e) {
 
     function weatherError() {
         toastr.error("We couldn't find your city, check the spelling or whether this place actually exists.", 'Error!')
+        $("#weatherContainer").css("display", "none");
+        $("#getClothingBtn").css("display", "none");
     }
 });
 
@@ -235,7 +240,7 @@ $(document).ready(function () {
                 // update icon, temp, humidity, and wind speed to corresponding weatherCard
                 var row2 = $(".weatherCard")[i]
                 var weatherIcon = $(row2).find(".weather-icon")
-                weatherIcon.attr("src", `http://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
+                weatherIcon.attr("src", `https://openweathermap.org/img/wn/${obj.weather[0].icon}.png`)
                 // update temp
                 var row3 = $(".weatherCard")[i]
                 var weatherTemp = $(row3).find(".temperature")
@@ -279,6 +284,9 @@ $(document).ready(function () {
 
     function weatherError() {
         toastr.error("We couldn't find your last saved search, check the spelling or whether this place actually exists.", 'Uh oh...')
+        $("#getClothingBtn").css("display", "none");
+        $("#weatherContainer").css("display", "none");
+
     }
 })
 
@@ -537,11 +545,8 @@ function suggestItems() {
                 element.item3 = generalCold[random3];
                 generalCold.splice(random3, 1);
             }
-
         }
     });
-
-    console.log(imagesArray);
 }
 
 // our api keys since we're limited to 40 searches a day
