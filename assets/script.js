@@ -95,8 +95,9 @@ $("#searchBtn").on("click", function (e) {
 
     // empties out old city name
     $('#cityName').empty();
+    
 
-    // Empties suggested items generated from previous search (Seohui)
+    // Empties suggested items generated from previous search
     $('#suggestedItems').empty();
 
     // grabs city name from text input area
@@ -106,12 +107,9 @@ $("#searchBtn").on("click", function (e) {
     // sets city-name = to user type
     $('#cityName').text(location)
 
-    console.log(location);
     //setting city into local storage
     localStorage.setItem("cit-name", (location));
 
-
-    console.log(location);
 
     // var APIKey = "298a4f435bb40084f3affdac067f0650";
 
@@ -125,7 +123,7 @@ $("#searchBtn").on("click", function (e) {
     });
 
     function weatherCall(response) {
-        // console.log(response);
+
         //displays the weather container on search
         $("#weatherContainer").css("display", "block");
 
@@ -173,7 +171,9 @@ $("#searchBtn").on("click", function (e) {
         // Once the city weather button is clicked, it will display get-clothing-options button
         $("#getClothingBtn").css("display", "block");
 
-        console.log(weatherArray);
+        //removes text after successful search
+        $('.form-control').val('');
+
     };
 
     toastr.options = {
@@ -195,6 +195,8 @@ $("#searchBtn").on("click", function (e) {
 
     function weatherError() {
         toastr.error("We couldn't find your city, check the spelling or whether this place actually exists.", 'Error!')
+        $("#weatherContainer").css("display", "none");
+        $("#getClothingBtn").css("display", "none");
     }
 });
 
@@ -282,6 +284,9 @@ $(document).ready(function () {
 
     function weatherError() {
         toastr.error("We couldn't find your last saved search, check the spelling or whether this place actually exists.", 'Uh oh...')
+        $("#getClothingBtn").css("display", "none");
+        $("#weatherContainer").css("display", "none");
+
     }
 })
 
