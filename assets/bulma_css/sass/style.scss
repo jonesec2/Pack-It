@@ -65,6 +65,14 @@ h3 {
     font-weight: bold;
 }
 
+a {
+    transition: .4s all;
+    &:hover, &:focus {
+        opacity: .5;
+        text-decoration: none; 
+    }
+}
+
 
 /* ---- Layout */
 * {
@@ -111,23 +119,17 @@ footer {
 .clothing-card {
     margin: 2%;
     width: 96%;
-    // flex: 1 96%;
     flex-basis: 96%;
     padding-bottom: 0!important;
     @media (min-width: 440px) {
-        // flex: 1 42%;
         flex-basis: 46%;
     }
     @media (min-width: 767px) {
-        // flex: 1 21.333%;
         flex-basis: 29.333%;
     }
     img {
         width: 100%;
-        padding: 1em;
-        // display: block;
-        // margin-right: auto;
-        // margin-left: auto;
+        padding: 3em;
     }
     div {
         padding: 1em!important;
@@ -140,11 +142,6 @@ footer {
             background-color: $white;
             border-radius: 50%;
             padding: .5em 1em;
-            transition: .6s all;
-            &:hover, &:focus {
-                opacity: .7;
-                text-decoration: none; 
-            }
         }
     }
 }
@@ -195,6 +192,30 @@ body {
     #weatherContainer {
         width: 96%;
         margin: auto;
+        .weatherCard {
+            font-family: $family-sans-serif;
+            .date-container {
+                align-self: center;
+                background-color: $white;
+                color: $dark-blue!important;
+            }
+            .weather-data-container {
+                align-items: center;
+                padding: 0 2em!important;
+                background-color: $dark-blue;
+                color: $white;
+                .wind-speed {
+                    margin-right: .5em;
+                }
+                .fa-flag::before {
+                    content: "\f024";
+                
+                }
+                .fa {
+                    font-weight: 100;
+                }
+            }
+        }
     }
     .date-container  {
         width: 100%;
@@ -239,15 +260,10 @@ body {
 
 
 /* ---- Suitcase Page */
-
-
-.fa-flag::before {
-    content: "\f024";
-    position: absolute;
-    right: 5px;
-
-}
-
-.fa {
-    font-weight: 100;
+#suitcasePage {
+    .amazon-icon {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+    }
 }
