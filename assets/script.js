@@ -64,11 +64,11 @@ $("#suitcasePage .wrapper").on("click", function (event) {
     var element = event.target;
 
     if (element.matches("a") === true) {
-        console.log("working");
+        // console.log("working");
         // Get its data-card-number value and remove the item from the suitcase page
         var index = $(element).parents(".clothing-card").attr("data-card-number");
-        console.log(index);
-        console.log(savedItems);
+        // console.log(index);
+        // console.log(savedItems);
         savedItems.splice(index, 1);
 
         // Store updated items in localStorage, re-render the cards to suitcase page
@@ -171,7 +171,7 @@ $("#searchBtn").on("click", function (e) {
         // Once the city weather button is clicked, it will display get-clothing-options button
         $("#getClothingBtn").css("display", "block");
 
-        console.log(weatherArray);
+        // console.log(weatherArray);
 
         // Smooth scroll to weather container on search if entry is valid
         $('html,body').animate({scrollTop:$("#weatherContainer").offset().top}, 500);
@@ -241,7 +241,7 @@ $(document).ready(function () {
                 // update date to corresponding weatherCard
                 var weatherDate = $(row).find(".date")
                 weatherDate.text(obj.dt_txt.split(" ")[0])
-                console.log(obj)
+                // console.log(obj)
                 // update icon, temp, humidity, and wind speed to corresponding weatherCard
                 var row2 = $(".weatherCard")[i]
                 var weatherIcon = $(row2).find(".weather-icon")
@@ -362,7 +362,7 @@ var imagesArray = [
         imageName3: null
     }
 ];
-console.log(imagesArray)
+// console.log(imagesArray)
 
 function suggestItems() {
     var rain = ["Rain Boots", "Rain Pancho", "Umbrella", "Galoshes", "Rain Pants"];
@@ -607,7 +607,7 @@ $('#getClothingBtn').on('click', function () {
             element.imageResult1 = response.items[0].image.thumbnailLink
             element.imageName1 = response.queries.request[0].searchTerms
 
-            console.log(element.imageName1 + ": " + element.imageResult1)
+            // console.log(element.imageName1 + ": " + element.imageResult1)
 
         });
 
@@ -621,7 +621,7 @@ $('#getClothingBtn').on('click', function () {
             element.imageResult2 = response.items[0].image.thumbnailLink
             element.imageName2 = response.queries.request[0].searchTerms
 
-            console.log(element.imageName2 + ": " + element.imageResult2)
+            // console.log(element.imageName2 + ": " + element.imageResult2)
 
         });
 
@@ -634,7 +634,7 @@ $('#getClothingBtn').on('click', function () {
             element.imageResult3 = response.items[0].image.thumbnailLink
             element.imageName3 = response.queries.request[0].searchTerms
 
-            console.log(element.imageName3 + ": " + element.imageResult3)
+            // console.log(element.imageName3 + ": " + element.imageResult3)
 
         });
 
