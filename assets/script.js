@@ -171,6 +171,11 @@ $("#searchBtn").on("click", function (e) {
         // Once the city weather button is clicked, it will display get-clothing-options button
         $("#getClothingBtn").css("display", "block");
 
+        console.log(weatherArray);
+
+        // Smooth scroll to weather container on search if entry is valid
+        $('html,body').animate({scrollTop:$("#weatherContainer").offset().top}, 500);
+        
         //removes text after successful search
         $('.form-control').val('');
 
